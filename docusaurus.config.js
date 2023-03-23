@@ -65,10 +65,6 @@ const config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/epicodus-classroom/intro-curriculum/edit/main/',
         },
         blog: false,
         theme: {
@@ -92,7 +88,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'foo/test',
+            docId: 'welcome',
             position: 'left',
             label: 'Curriculum',
           },

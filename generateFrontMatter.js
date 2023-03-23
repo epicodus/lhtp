@@ -7,10 +7,12 @@ const getFrontMatterFromFilename = (filename) => {
   const fileWithoutExtension = path.basename(filename, path.extname(filename));
   const titlePart = fileWithoutExtension.replace(/^[^_]*_/, ''); // remove initial part (e.g., "0a_")
   const title = titlePart.replace(/[_-]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-  const slug = titlePart;
-  return {
+  const slug = titlePart === 'welcome' ? '/' : titlePart;
+  const hide_table_of_contents = true;
+    return {
     title,
-    slug
+    slug,
+    hide_table_of_contents
   };
 };
 
@@ -19,7 +21,6 @@ const addFrontMatterToFile = async (file) => {
   const existingFrontMatter = matter(fileContent);
   const newFrontMatter = getFrontMatterFromFilename(file);
   // const frontMatter = { ...existingFrontMatter.data, ...newFrontMatter };
-  // console.log(newFrontMatter);
   // const frontMatter = newFrontMatter;
 
   const frontMatterYaml = matter.stringify('', newFrontMatter).trim();
