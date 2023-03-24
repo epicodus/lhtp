@@ -34,10 +34,7 @@ async function fetchGithubContent({ filenames, repo, outDir='docs' }) {
       Authorization: `Bearer ${installationAccessToken}`,
     },
   });
-  console.log('client', client);
-
   for (const document of documents) {
-    console.log('document', document);
     const response = await client.get(document);
     fs.writeFileSync(path.join(outDir, document), response.data);
   }
