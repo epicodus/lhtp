@@ -7,12 +7,11 @@ const getFrontMatterFromFilename = (filename) => {
   const fileWithoutExtension = path.basename(filename, path.extname(filename));
   const titlePart = fileWithoutExtension.replace(/^[^_]*_/, ''); // remove initial part (e.g., "0a_")
   const title = titlePart.replace(/[_-]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-  const slug = titlePart === 'welcome' ? '/' : titlePart;
-  const hide_table_of_contents = true;
     return {
     title,
-    slug,
-    hide_table_of_contents
+    id: titlePart,
+    slug: titlePart === 'welcome' ? '/' : titlePart,
+    hide_table_of_contents: true
   };
 };
 

@@ -1,3 +1,25 @@
+# To Do
+
+### Generate / Sidebar:
+
+- generate sidebar (and front matter?) from layout file rather than just from folder. This will need to pull content from Github, since some lessons are in other repos. This means though that I could just pull all the content from Github, rather than needing to download it first. Bringing us back to the ability to have a monolith app, if desired.
+- show label in sidebar for day of week and lesson vs exercise, also based on layout file
+
+
+
+### Main page:
+
+- show tabs
+
+
+
+### Styling:
+
+- color scheme, syntax highlighting
+
+
+---
+
 # Website
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.

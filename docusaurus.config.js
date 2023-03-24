@@ -1,7 +1,3 @@
-const fs = require("fs");
-const jwt = require('jsonwebtoken');
-const axios = require('axios');
-
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
@@ -36,7 +32,16 @@ const config = {
     locales: ['en'],
   },
 
-  // plugins: [require.resolve("./plugins/fetch-github-content")],
+  // plugins: [
+  //   [
+  //     require.resolve("./plugins/fetch-github-content"),
+  //     {
+  //       repo: 'testing',
+  //       outDir: 'docs',
+  //       filenames: ['README.md', 'dei_1_independent_project.md']
+  //     }
+  //   ]
+  // ],
 
   // plugins: [
   //   [
