@@ -1,45 +1,21 @@
-const fs = require('fs-extra');
-const glob = require('glob');
-const matter = require('gray-matter');
-const path = require('path');
+import matter from 'gray-matter';
 
-const getFrontMatterFromFilename = (filename) => {
-  const fileWithoutExtension = path.basename(filename, path.extname(filename));
-  const titlePart = fileWithoutExtension.replace(/^[^_]*_/, ''); // remove initial part (e.g., "0a_")
-  const title = titlePart.replace(/[_-]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-    return {
+export function generateFrontMatter(lesson) {
+  const { title, number, day, type, isFirst, isLast } = lesson;
+  const id = title.replace(/[-\s]/g, '_').replace(/[#:;-=?<>(),./]/g, '').toLowerCase();
+  
+  const frontMatter = {
     title,
-    id: titlePart,
-    slug: titlePart === 'welcome' ? '/' : titlePart,
-    hide_table_of_contents: true
-  };
+    id,
+    slug: id,
+    hide_table_of_contents: true,
+    sidebar_position: number + 1,
+    day,
+    type
+  }  
+  if (isFirst) frontMatter.paginationPrev = null;
+  if (isLast) frontMatter.paginationNext = null;
+
+  const frontMatterYaml = matter.stringify('', frontMatter).trim() + '\n\n';
+  return frontMatterYaml;
 };
-
-const addFrontMatterToFile = async (file) => {
-  const fileContent = await fs.readFile(file, 'utf8');
-  const existingFrontMatter = matter(fileContent);
-  const newFrontMatter = getFrontMatterFromFilename(file);
-  // const frontMatter = { ...existingFrontMatter.data, ...newFrontMatter };
-  // const frontMatter = newFrontMatter;
-
-  const frontMatterYaml = matter.stringify('', newFrontMatter).trim();
-  const newContent = frontMatterYaml + '\n\n' + existingFrontMatter.content.trim();
-
-  // const newContent = matter.stringify(fileContent, frontMatter);
-  await fs.writeFile(file, newContent);
-};
-
-const processFiles = async () => {
-  const docsFolder = './docs'; // Replace this with the path to your docs folder if different
-  const filePattern = `${docsFolder}/**/*.md?(x)`;
-  const files = glob.sync(filePattern);
-
-  for (const file of files) {
-    await addFrontMatterToFile(file);
-  }
-};
-
-processFiles().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});

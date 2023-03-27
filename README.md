@@ -1,12 +1,8 @@
 # To Do
 
-### Generate / Sidebar:
+### Sidebar:
 
-NEXT: generate front matter from layout file
-
-- generate sidebar (and front matter?) from layout file rather than just from folder. This will need to pull content from Github, since some lessons are in other repos. This means though that I could just pull all the content from Github, rather than needing to download it first. Bringing us back to the ability to have a monolith app, if desired.
 - show label in sidebar for day of week and lesson vs exercise, also based on layout file
-
 
 
 ### Main page:
@@ -14,10 +10,18 @@ NEXT: generate front matter from layout file
 - show tabs
 
 
-
 ### Styling:
 
 - color scheme, syntax highlighting
+
+
+---
+
+# Completed
+
+- pulls entire track from private github repo based on track and section layout files
+- displays sections and lessons in correct order, with correct names, slugs, navigation links
+- modifies style html properties to work with React
 
 
 ---

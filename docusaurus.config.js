@@ -93,7 +93,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'welcome',
+            docId: 'getting_started_with_epicodus/learn_how_to_program',
             position: 'left',
             label: 'Curriculum',
           },

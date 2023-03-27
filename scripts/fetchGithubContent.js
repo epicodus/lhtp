@@ -6,10 +6,11 @@ import path from "path";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import "dotenv/config";
+import { reactifyStyles } from "./utils.js";
 
 const { GITHUB_APP_PEM_PATH, GITHUB_USER, GITHUB_APP_ID, GITHUB_INSTALLATION_ID } = process.env;
 
-export async function fetchGithubContent({ repo, directory='', filenames, outDir='docs' }) {
+export async function fetchGithubContent({ repo, directory='', documents, outDir='docs' }) {
   const installationAccessToken = await getInstallationAccessToken();
   const client = axios.create({
     baseURL: `https://api.github.com/repos/${GITHUB_USER}/${repo}/contents/${directory}`,
@@ -19,9 +20,14 @@ export async function fetchGithubContent({ repo, directory='', filenames, outDir
     },
   });
   // console.log('client', client);
-  for (const file of filenames) {
-    const response = await client.get(file);
-    fs.writeFileSync(path.join(outDir, file), response.data);
+  console.log(`\nRetrieving ${documents.length} file(s) from ${repo}/${directory} to ${outDir}...`);
+  for (const doc of documents) {
+    const { filename, frontMatter } = doc;
+    console.log('fetching', filename);
+    const response = await client.get(filename);
+    const reactifiedContent = reactifyStyles(response.data);
+    const content = frontMatter + reactifiedContent;
+    fs.writeFileSync(path.join(outDir, filename), content);
   }
 }
 
