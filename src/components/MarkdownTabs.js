@@ -9,13 +9,15 @@
 // </MarkdownTabItem>
 // </MarkdownTabs>
 //
-// IMPORTANT NOTES: 
-//
-// Must include blank lines before and after the tab content!
-// Indentation is picky! 4 spaces of intentation are automatically treated as a code block!
-//
+// Usage notes:
 // default tab (defaultValue) is first tab
 // default label is the value passed to the TabItem
+//
+// IMPORTANT NOTES - MDX V1 LIMITATIONS:
+// Must include blank lines before and after the tab content!
+// JSX component tags can not be indented!
+//
+// The above issues should be fixed when Docusaurus 3 is released, supporting MDX v2.
 
 import React from 'react';
 import Tabs from '@theme/Tabs';

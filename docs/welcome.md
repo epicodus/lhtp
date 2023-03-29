@@ -11,17 +11,23 @@ sidebar_position: 0
 <MarkdownTabs>
 <MarkdownTabItem value="Lesson">
 
-This is the content of Tab 1.
+# heading 1
+
+some content for tab 1
 
 - List item 1
 - List item 2
+
+> blockquote  
+> second line of blockquote
 
 </MarkdownTabItem>
 
 <MarkdownTabItem value="Notes">
 
-### heading 3
-This is the content of Tab 2.
+heading 2
+---------
+some content for tab 3
 
 </MarkdownTabItem>
 </MarkdownTabs>
