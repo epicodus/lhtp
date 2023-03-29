@@ -3,6 +3,12 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const githubTheme = require('prism-react-renderer/themes/github');
+const nightOwlTheme = require('prism-react-renderer/themes/nightOwl');
+const nightOwlLightTheme = require('prism-react-renderer/themes/nightOwlLight');
+const palenightTheme = require('prism-react-renderer/themes/palenight');
+const vsDarkTheme = require('prism-react-renderer/themes/vsDark');
+const vsLightTheme = require('prism-react-renderer/themes/vsLight');
 
 const remarkDisableTokenizers = require('remark-disable-tokenizers');
 
@@ -90,20 +96,23 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      colorMode: {
+        defaultMode: 'light',
+        disableSwitch: false,
+        respectPrefersColorScheme: true,
+      },
       navbar: {
         title: 'Learn How to Program',
         logo: {
           alt: 'Learn How to Program',
-          src: 'img/logo.svg',
+          src: 'img/lhtp-favicon.png',
         },
         items: [
           {
             type: 'doc',
             docId: 'getting_started_with_epicodus/learn_how_to_program',
             position: 'left',
-            label: 'Curriculum',
+            label: 'Introduction to Programming',
           },
         ],
       },

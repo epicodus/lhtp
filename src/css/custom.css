@@ -6,7 +6,8 @@
 
 /* You can override the default Infima variables here. */
 
-@import '~bootstrap/dist/css/bootstrap.min.css';
+/* commented out cuz importing bootstrap css globally breaks switching color mode */
+/* @import '~bootstrap/dist/css/bootstrap.min.css'; */
 
 :root {
   --ifm-color-primary: #2e8555;
