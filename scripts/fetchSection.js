@@ -11,6 +11,7 @@ export async function fetchSection({ sectionLayoutFilePath, docsPath }) {
   const { section, order, directory, repo, lessons } = await readYamlFile(sectionLayoutFilePath);
   const outDir = path.join(docsPath, directory);
 
+  console.log(`Fetching section ${sectionLayoutFilePath}...`)
   createDirectory(outDir);
   createCategoryFile({ section, order, outDir });
   fetchLessons({ repo, directory, outDir, lessons });

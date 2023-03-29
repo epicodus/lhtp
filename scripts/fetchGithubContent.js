@@ -10,6 +10,22 @@ import { reactifyStyles } from "./utils.js";
 
 const { GITHUB_APP_PEM_PATH, GITHUB_USER, GITHUB_APP_ID, GITHUB_INSTALLATION_ID } = process.env;
 
+// refactor these two functions to be less duplicative
+
+export async function fetchGithubFile({ repo, directory='', filename, outDir }) {
+  const installationAccessToken = await getInstallationAccessToken();
+  const client = axios.create({
+    baseURL: `https://api.github.com/repos/${GITHUB_USER}/${repo}/contents/${directory}`,
+    headers: {
+      Accept: "application/vnd.github.raw+json",
+      Authorization: `Bearer ${installationAccessToken}`,
+    },
+  });
+  console.log(`\nRetrieving ${filename} from ${repo}/${directory} to ${outDir}...`);
+  const response = await client.get(filename);
+  fs.writeFileSync(path.join(outDir, filename), response.data);
+}
+
 export async function fetchGithubContent({ repo, directory='', documents, outDir='docs' }) {
   const installationAccessToken = await getInstallationAccessToken();
   const client = axios.create({

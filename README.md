@@ -2,6 +2,26 @@
 
 This is a rewrite of LHTP using Docusaurus 2, a React-based static site generator.
 
+### Configuration
+
+The scripts to pull content from private GitHub repos are written to work with a GitHub App.
+
+#### **`.env`**
+```
+GITHUB_USER = 'GITHUB_USER_OR_ORG_NAME'
+GITHUB_INSTALLATION_ID = 'GITHUB_APP_INSTALLATION_ID'
+GITHUB_APP_ID = 'GITHUB_APP_ID'
+GITHUB_APP_PEM_PATH = 'LOCAL_PATH_TO_GITHUB_APP_KEY_PEM_FILE'
+```
+
+### Pulling docs from GitHub
+
+In `scripts/fetchTrack.js`, replace values for constants defined at top of file, then, from the scripts directory:
+
+```
+node fetchTrack
+```
+
 ### Installation
 
 ```
@@ -48,6 +68,11 @@ To Do (very incomplete)
 ### Tests:
 
 - write them!
+
+### Scripts to build docs:
+
+- DRY fetchGithubContent and fetchGithubFile functions
+- DRY fetchGithubFile calls in fetchTrack
 
 ### Sidebar:
 
