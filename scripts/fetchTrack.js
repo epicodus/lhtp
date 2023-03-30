@@ -27,6 +27,8 @@ async function fetchTrack() {
       docsPath: LOCAL_DOCS_PATH
     });
   }
+  // download a test homepage, for testing purposes only
+  fetchFile({ repo: 'testing', filename: 'welcome.md', outDir: LOCAL_DOCS_PATH });
 }
 
 async function fetchLayoutFile(filename) {
