@@ -4,14 +4,14 @@ import path from "path";
 import lodash from "lodash";
 import { createDirectory, readYamlFile } from "./utils.js";
 import { createCategoryFile } from "./generateCategoryFile.js";
-import { fetchGithubContent } from "./fetchGithubContent.js";
+import { fetchDocusaurusDocs } from "./fetchGithubContent.js";
 import { generateFrontMatter } from "./generateFrontMatter.js";
 
 export async function fetchSection({ sectionLayoutFilePath, docsPath }) {
   const { section, order, directory, repo, lessons } = await readYamlFile(sectionLayoutFilePath);
   const outDir = path.join(docsPath, directory);
 
-  console.log(`Fetching section ${sectionLayoutFilePath}...`)
+  // console.log(`Fetching section ${sectionLayoutFilePath}...`)
   createDirectory(outDir);
   createCategoryFile({ section, order, outDir });
   fetchLessons({ repo, directory, outDir, lessons });
@@ -31,7 +31,7 @@ async function fetchLessons({ repo, directory, outDir, lessons }) {
   for (const lessonGroup of groupedLessons) {
     const { repo, directory } = lessonGroup[0];
     const documents = lessonGroup.map(({filename, frontMatter}) => ({ filename, frontMatter }));
-    await fetchGithubContent({
+    await fetchDocusaurusDocs({
       outDir,
       repo,
       directory,

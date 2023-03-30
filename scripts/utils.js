@@ -1,5 +1,6 @@
 import fs from "fs";
 import yaml from "js-yaml";
+import inquirer from 'inquirer';
 
 // *****************************************************************************
 // THE WIDTH AND COLOR REPLACEMENTS HRER ARE A TEMPORARY SOLUTION FOR TESTING.
@@ -25,7 +26,14 @@ export function reactifyStyles(content) {
 }
 // *****************************************************************************
 
-export function eraseDirectory(dirPath) {
+export function clearDirectories(dirPaths) {
+  for (const dirPath of dirPaths) {
+    eraseDirectory(dirPath);
+    createDirectory(dirPath);
+  }
+}
+
+function eraseDirectory(dirPath) {
   if (fs.existsSync(dirPath)) {
     fs.rmSync(dirPath, { recursive: true, force: true });
   }
@@ -42,4 +50,16 @@ export function readYamlFile(filePath) {
   } catch (err) {
     console.error(`Error reading YAML file: ${err}`);
   }
+}
+
+export async function confirmAction(message) {
+  const { confirmation } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'confirmation',
+      message: message,
+      default: false,
+    },
+  ]);
+  return Promise.resolve(confirmation); // returns boolean
 }

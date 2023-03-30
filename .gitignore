@@ -19,7 +19,7 @@ scripts/layouts
 .env.test.local
 .env.production.local
 **/*.pem
-
+**/tmp
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

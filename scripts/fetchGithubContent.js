@@ -10,23 +10,21 @@ import { reactifyStyles } from "./utils.js";
 
 const { GITHUB_APP_PEM_PATH, GITHUB_USER, GITHUB_APP_ID, GITHUB_INSTALLATION_ID } = process.env;
 
-// refactor these two functions to be less duplicative
-
-export async function fetchGithubFile({ repo, directory='', filename, outDir }) {
-  const installationAccessToken = await getInstallationAccessToken();
-  const client = axios.create({
-    baseURL: `https://api.github.com/repos/${GITHUB_USER}/${repo}/contents/${directory}`,
-    headers: {
-      Accept: "application/vnd.github.raw+json",
-      Authorization: `Bearer ${installationAccessToken}`,
-    },
-  });
-  console.log(`\nRetrieving ${filename} from ${repo}/${directory} to ${outDir}...`);
-  const response = await client.get(filename);
-  fs.writeFileSync(path.join(outDir, filename), response.data);
+export async function fetchFile({ repo, directory='', outDir, filename }) {
+  const [{ content }] = await fetchGithubContent({ repo, directory, documents: [{ filename }] });
+  fs.writeFileSync(path.join(outDir, filename), content);
 }
 
-export async function fetchGithubContent({ repo, directory='', documents, outDir='docs' }) {
+export async function fetchDocusaurusDocs({ repo, directory='', outDir, documents }) {
+  const fetchedDocuments = await fetchGithubContent({ repo, directory, documents });
+  console.log(`\nPreparing ${fetchedDocuments.length} file(s) for Docusaurus in ${outDir}`);
+  for (const { filename, content, frontMatter } of fetchedDocuments) {
+    const mdx = frontMatter + reactifyStyles(content);
+    fs.writeFileSync(path.join(outDir, filename), mdx);
+  }
+}
+
+async function fetchGithubContent({ repo, directory='', documents }) {
   const installationAccessToken = await getInstallationAccessToken();
   const client = axios.create({
     baseURL: `https://api.github.com/repos/${GITHUB_USER}/${repo}/contents/${directory}`,
@@ -35,16 +33,14 @@ export async function fetchGithubContent({ repo, directory='', documents, outDir
       Authorization: `Bearer ${installationAccessToken}`,
     },
   });
-  // console.log('client', client);
-  console.log(`\nRetrieving ${documents.length} file(s) from ${repo}/${directory} to ${outDir}...`);
+  console.log(`\nRetrieving ${documents.length} file(s) from ${repo}/${directory}`);
+  let fetchedDocuments = [];
   for (const doc of documents) {
-    const { filename, frontMatter } = doc;
-    console.log('fetching', filename);
-    const response = await client.get(filename);
-    const reactifiedContent = reactifyStyles(response.data);
-    const content = frontMatter + reactifiedContent;
-    fs.writeFileSync(path.join(outDir, filename), content);
+    console.log('fetching', doc.filename);
+    const response = await client.get(doc.filename);
+    fetchedDocuments.push({ ...doc, content: response.data });
   }
+  return fetchedDocuments;
 }
 
 async function getInstallationAccessToken() {

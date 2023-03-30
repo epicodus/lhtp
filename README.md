@@ -19,6 +19,7 @@ GITHUB_APP_PEM_PATH = 'LOCAL_PATH_TO_GITHUB_APP_KEY_PEM_FILE'
 In `scripts/fetchTrack.js`, replace values for constants defined at top of file, then, from the scripts directory:
 
 ```
+npm install
 node fetchTrack
 ```
 
@@ -67,12 +68,11 @@ To Do (very incomplete)
 
 ### Tests:
 
-- write them!
+- playwright?
 
-### Scripts to build docs:
+### Search:
 
-- DRY fetchGithubContent and fetchGithubFile functions
-- DRY fetchGithubFile calls in fetchTrack
+- implement local search or use docsaurus remote method
 
 ### Sidebar:
 
@@ -82,6 +82,10 @@ To Do (very incomplete)
 
 - link to different tracks?
 - add previous and next navigation to navbar?
+
+### MDX components:
+
+- StackBlitz
 
 ### Markdown processing:
 
