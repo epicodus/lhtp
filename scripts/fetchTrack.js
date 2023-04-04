@@ -12,21 +12,32 @@ const TRACK_LAYOUT_FILENAME = 'intro-track-layout.yaml';
 const LOCAL_DOCS_PATH = '../docs'; // path to docusaurus docs directory (likely '../docs')
 const SCRATCH_DIRECTORY_PATH = './tmp'; // any directory that can be safely deleted
 
+// ************************************************************
+
 import path from "path";
 import { confirmAction, clearDirectories, readYamlFile } from "./utils.js";
 import { fetchSection } from "./fetchSection.js";
 import { fetchFile } from "./fetchGithubContent.js";
+import { generateSiteSidebar } from "./generateSidebar.js";
 
 async function fetchTrack() {
   const trackLayoutPath = await fetchLayoutFile(TRACK_LAYOUT_FILENAME);
   const { sections } = await readYamlFile(trackLayoutPath);
+
+  const sectionDirectories = [];
+
   for (const layoutFile of sections) {
     const sectionLayoutFilePath = await fetchLayoutFile(layoutFile);
+    const sectionLayout = await readYamlFile(sectionLayoutFilePath);
+    sectionDirectories.push(sectionLayout.directory);
     fetchSection({  
-      sectionLayoutFilePath,
+      sectionLayout,
       docsPath: LOCAL_DOCS_PATH
     });
   }
+
+  generateSiteSidebar({ sectionDirectories });
+
   // download a test homepage, for testing purposes only
   fetchFile({ repo: 'testing', filename: 'welcome.md', outDir: LOCAL_DOCS_PATH });
 }

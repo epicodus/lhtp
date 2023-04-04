@@ -3,7 +3,7 @@
 import { writeFileSync } from 'fs';
 import path from 'path';
 
-export function createCategoryFile({ section, order, outDir }) {
+export function generateCategoryFile({ section, order, outDir }) {
   const categoryJsonPath = path.join(outDir, '_category_.json');
   const categoryJson = {
     position: order,
