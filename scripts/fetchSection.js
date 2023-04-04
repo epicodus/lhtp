@@ -21,6 +21,7 @@ export async function fetchSection({ sectionLayout, docsPath }) {
 }
 
 const addLessonMetadata = ({ lessons, repo, directory }) => {
+  const dayCount = { "weekend": 0, "monday": 0, "tuesday": 0, "wednesday": 0, "thursday": 0, "friday": 0 };
   return lessons.map((lesson, i) => ({
     ...lesson,
     repo: lesson.repo || repo,
@@ -28,8 +29,17 @@ const addLessonMetadata = ({ lessons, repo, directory }) => {
     number: i,
     isFirst: i === 0,
     isLast: i === lessons.length - 1,
-    frontMatter: generateFrontMatter({ ...lesson, number: i })
+    frontMatter: generateFrontMatter({
+      ...lesson,
+      number: i,
+      numberDay: nextNumber(dayCount, lesson.day)
+    })
   }));
+}
+
+const nextNumber = (dayCount, day) => {
+  dayCount[day]++
+  return dayCount[day];
 }
 
 async function fetchLessons({ lessons, outDir }) {
