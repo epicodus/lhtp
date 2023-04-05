@@ -1,10 +1,14 @@
-# LHTP - Docusaurus
+# LHTP 2.0 - Docusaurus
 
 This is a rewrite of LHTP using Docusaurus 2, a React-based static site generator.
 
-### Configuration
+## Pulling course docs from GitHub
 
 The scripts to pull content from private GitHub repos are written to work with a GitHub App.
+
+**_Note that these scripts are a separate npm module, located in the `scripts` directory._**
+
+Add the following to `.env` within the `scripts` directory:
 
 #### **`scripts/.env`**
 ```
@@ -14,14 +18,20 @@ GITHUB_APP_ID = 'GITHUB_APP_ID'
 GITHUB_APP_PEM_PATH = 'LOCAL_PATH_TO_GITHUB_APP_KEY_PEM_FILE'
 ```
 
-### Pulling docs from GitHub
+Replace values defined at top of `scripts/fetchCourse.js`
 
-Replace values defined at top of `scripts/fetchCourse.js`, then run the following **from within the scripts directory**:
+Run the following **from within the `scripts` directory**:
 
 ```
 npm install
 npm start
 ```
+
+---
+
+## Docusaurus
+
+Once the docs are in place in the `docs` folder, you can run Docusaurus itself.
 
 ### Installation
 
