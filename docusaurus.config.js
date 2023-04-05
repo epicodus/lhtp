@@ -110,9 +110,15 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'getting_started_with_epicodus/learn_how_to_program',
+            docId: 'courses',
             position: 'left',
-            label: 'Introduction to Programming',
+            label: 'Courses',
+          },
+          {
+            type: 'doc',
+            docId: 'student-handbook',
+            position: 'left',
+            label: 'Handbook',
           },
         ],
       },

@@ -1,6 +1,6 @@
 module.exports = {
   docs: [
-    'welcome',
+    'introduction_to_programming',
     require('./docs/0_getting_started_with_epicodus/sidebar.js'),
     require('./docs/0_getting_started_with_working_remotely/sidebar.js'),
     require('./docs/0_getting_started_with_intro_to_programming/sidebar.js'),

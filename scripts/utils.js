@@ -63,3 +63,7 @@ export async function confirmAction(message) {
   ]);
   return Promise.resolve(confirmation); // returns boolean
 }
+
+export function titleToId(title) {
+  return title.replace(/[-\s]/g, '_').replace(/[#:;-=?<>(),./]/g, '').toLowerCase();
+}

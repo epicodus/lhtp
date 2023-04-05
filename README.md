@@ -16,11 +16,11 @@ GITHUB_APP_PEM_PATH = 'LOCAL_PATH_TO_GITHUB_APP_KEY_PEM_FILE'
 
 ### Pulling docs from GitHub
 
-In `scripts/fetchTrack.js`, replace values for constants defined at top of file, then, from the scripts directory:
+Replace values defined at top of `scripts/fetchCourse.js`, then run the following **from within the scripts directory**:
 
 ```
 npm install
-node fetchTrack
+npm start
 ```
 
 ### Installation

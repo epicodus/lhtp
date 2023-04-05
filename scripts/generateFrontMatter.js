@@ -1,8 +1,9 @@
 import matter from 'gray-matter';
+import { titleToId } from './utils.js';
 
 export function generateFrontMatter(lesson) {
   const { title, number, day, numberDay, type, isFirst, isLast } = lesson;
-  const id = title.replace(/[-\s]/g, '_').replace(/[#:;-=?<>(),./]/g, '').toLowerCase();
+  const id = titleToId(title);
   const updatedTitle = type === 'lesson' ? `${numberDay}. 📓 ${title}`  : `${numberDay}. ✏️ ${title}`;
 
   const frontMatter = {

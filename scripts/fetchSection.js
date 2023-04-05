@@ -1,4 +1,4 @@
-// script to go through YAML layout file for a section, fetch content from GitHub, write to appropriate directories
+// script to go through YAML layout file for a section/week, fetch content from GitHub, write to appropriate directories
 
 import path from "path";
 import lodash from "lodash";
