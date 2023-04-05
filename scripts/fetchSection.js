@@ -17,7 +17,7 @@ export async function fetchSection({ sectionLayout, docsPath }) {
   createDirectory(outDir);
   fetchLessons({ repo, directory, outDir, lessons: updatedLessons });
   generateCategoryFile({ section, order, outDir });
-  generateSectionSidebar({ section, outDir, lessons: updatedLessons });
+  generateSectionSidebar({ title: section, number: order, outDir, lessons: updatedLessons });
 }
 
 const addLessonMetadata = ({ lessons, repo, directory }) => {

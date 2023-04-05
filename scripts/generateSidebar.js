@@ -6,7 +6,7 @@ import lodash from 'lodash';
 import matter from 'gray-matter';
 import { titleToId } from './utils.js';
 
-export function generateSectionSidebar({ section, lessons, outDir }) {
+export function generateSectionSidebar({ title, number, lessons, outDir }) {
   const sidebarPath = path.join(outDir, 'sidebar.js');
 
   const groupedLessons = Object.values(lodash.groupBy(lessons, lesson => lesson.day));
@@ -19,7 +19,7 @@ export function generateSectionSidebar({ section, lessons, outDir }) {
 
   const sidebar = {
     type: 'category',
-    label: section,
+    label: `[wk${number}] ${title}`,
     items: days
   }
 
