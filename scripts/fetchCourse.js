@@ -6,7 +6,7 @@ const REMOTE_COURSE_LAYOUT_DIRECTORY = 'layouts';
 const COURSE_LAYOUT_FILENAME = 'intro-course-layout.yaml';
 
 // You probably don't need to edit these values
-const LOCAL_DOCS_PATH = '../docs'; // path to docusaurus docs directory (likely '../docs')
+const LOCAL_DOCS_PATH = path.join('..', 'docs'); // path to docusaurus docs directory (likely '../docs')
 const SCRATCH_DIRECTORY_PATH = './tmp'; // any directory that can be safely deleted
 
 // **************************************************** //
@@ -85,7 +85,7 @@ async function confirmFetch() {
   }
 }
 
-if (process.cwd().split('/').pop() === 'scripts') {
+if (process.cwd().replace(/\\/g, '/').split('/').pop() === 'scripts') {
   confirmFetch();
 } else {
   console.log('Please run from the scripts directory');
