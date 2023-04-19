@@ -4,6 +4,15 @@ run-name: Fetch docs, build, and deploy Docusaurus site
 on:
   # Allows this workflow to be triggered by another workflow
   workflow_call:
+    secrets:
+      CURRICULUM_ORG:
+        required: true
+      CURRICULUM_GITHUB_APP_ID:
+        required: true
+      CURRICULUM_GITHUB_INSTALLATION_ID:
+        required: true
+      CURRICULUM_GITHUB_APP_PEM:
+        required: true
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
