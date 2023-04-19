@@ -4,35 +4,9 @@ run-name: Fetch docs, build, and deploy Docusaurus site
 on:
   # Allows this workflow to be triggered by another workflow
   workflow_call:
-    inputs:
-      org:
-        required: true
-        type: string
-      appId:
-        required: true
-        type: string
-      installationId:
-        required: true
-        type: string
-      privateKey:
-        required: true
-        type: string
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    inputs:
-      ORG:
-        required: true
-        type: string
-      APP_ID:
-        required: true
-        type: string
-      INSTALLATION_ID:
-        required: true
-        type: string
-      PRIVATE_KEY:
-        required: true
-        type: string
 
 jobs:
   run_script:
@@ -52,10 +26,10 @@ jobs:
       - name: Fetch docs
         run: npm run fetch
         env:
-          ORG: ${{ inputs.ORG }}
-          APP_ID: ${{ inputs.APP_ID }}
-          INSTALLATION_ID: ${{ inputs.INSTALLATION_ID }}
-          PRIVATE_KEY: ${{ inputs.PRIVATE_KEY }}
+          ORG: ${{ secrets.CURRICULUM_ORG }}
+          APP_ID: ${{ secrets.CURRICULUM_GITHUB_APP_ID }}
+          INSTALLATION_ID: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
+          PRIVATE_KEY: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
 
       - name: Build site
         run: npm run build
