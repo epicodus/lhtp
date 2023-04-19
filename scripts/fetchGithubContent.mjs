@@ -1,14 +1,18 @@
 // script to fetch files from private github repo; uses github app authentication
-// set env variables: GITHUB_APP_PEM_PATH, GITHUB_USER, GITHUB_APP_ID, GITHUB_INSTALLATION_ID
+// set env variables in github workflow or local .env file:
+// PRIVATE_KEY: PEM for github app
+// ORG: github user or organization
+// APP_ID: github app id
+// INSTALLATION_ID: github app installation id
 
 import fs from "fs";
 import path from "path";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import "dotenv/config";
-import { reactifyStyles } from "./utils.js";
+import { reactifyStyles } from "./utils.mjs";
 
-const { GITHUB_APP_PEM_PATH, GITHUB_USER, GITHUB_APP_ID, GITHUB_INSTALLATION_ID } = process.env;
+const { PRIVATE_KEY, ORG, APP_ID, INSTALLATION_ID } = process.env;
 
 export async function fetchFile({ repo, directory='', outDir, filename }) {
   const [{ content }] = await fetchGithubContent({ repo, directory, documents: [{ filename }] });
@@ -27,7 +31,7 @@ export async function fetchDocusaurusDocs({ repo, directory='', outDir, document
 async function fetchGithubContent({ repo, directory='', documents }) {
   const installationAccessToken = await getInstallationAccessToken();
   const client = axios.create({
-    baseURL: `https://api.github.com/repos/${GITHUB_USER}/${repo}/contents/${directory}`,
+    baseURL: `https://api.github.com/repos/${ORG}/${repo}/contents/${directory}`,
     headers: {
       Accept: "application/vnd.github.raw+json",
       Authorization: `Bearer ${installationAccessToken}`,
@@ -46,7 +50,7 @@ async function fetchGithubContent({ repo, directory='', documents }) {
 async function getInstallationAccessToken() {
   const jwtToken = generateJWT();
   const response = await axios.post(
-    `https://api.github.com/app/installations/${GITHUB_INSTALLATION_ID}/access_tokens`,
+    `https://api.github.com/app/installations/${INSTALLATION_ID}/access_tokens`,
     {},
     {
       headers: {
@@ -59,11 +63,10 @@ async function getInstallationAccessToken() {
 }
 
 function generateJWT() {
-  const privateKey = fs.readFileSync(GITHUB_APP_PEM_PATH, 'utf-8');
   const payload = {
     iat: Math.floor(Date.now() / 1000),
     exp: Math.floor(Date.now() / 1000) + 60,
-    iss: GITHUB_APP_ID,
+    iss: APP_ID,
   };
   const signOptions = {
     algorithm: 'RS256',
@@ -72,6 +75,6 @@ function generateJWT() {
       typ: 'JWT',
     },
   };
-  const token = jwt.sign(payload, privateKey, signOptions);
+  const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
   return token;
 }

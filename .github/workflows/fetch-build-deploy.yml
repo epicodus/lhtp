@@ -1,0 +1,64 @@
+name: Fetch docs, build, and deploy Docusaurus site
+run-name: Fetch docs, build, and deploy Docusaurus site
+
+on:
+  # Allows this workflow to be triggered by another workflow
+  workflow_call:
+    inputs:
+      org:
+        required: true
+        type: string
+      appId:
+        required: true
+        type: string
+      installationId:
+        required: true
+        type: string
+      privateKey:
+        required: true
+        type: string
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      ORG:
+        required: true
+        type: string
+      APP_ID:
+        required: true
+        type: string
+      INSTALLATION_ID:
+        required: true
+        type: string
+      PRIVATE_KEY:
+        required: true
+        type: string
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch docs
+        run: npm run fetch
+        env:
+          ORG: ${{ inputs.ORG }}
+          APP_ID: ${{ inputs.APP_ID }}
+          INSTALLATION_ID: ${{ inputs.INSTALLATION_ID }}
+          PRIVATE_KEY: ${{ inputs.PRIVATE_KEY }}
+
+      - name: Build site
+        run: npm run build
+
+      - name: Deploy site
+        run: npm run deploy

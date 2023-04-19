@@ -1,5 +1,5 @@
 import matter from 'gray-matter';
-import { titleToId } from './utils.js';
+import { titleToId } from './utils.mjs';
 
 export function generateFrontMatter(lesson) {
   const { title, number, day, numberDay, type, isFirst, isLast } = lesson;

@@ -4,7 +4,7 @@ import { writeFileSync } from 'fs';
 import path from 'path';
 import lodash from 'lodash';
 import matter from 'gray-matter';
-import { titleToId } from './utils.js';
+import { titleToId } from './utils.mjs';
 
 export function generateSectionSidebar({ title, number, lessons, outDir }) {
   const sidebarPath = path.join(outDir, 'sidebar.js');
@@ -28,7 +28,7 @@ export function generateSectionSidebar({ title, number, lessons, outDir }) {
 }
 
 export function generateSiteSidebar({ title, sectionDirectories }) {
-  const sidebarPath = path.join('..', 'sidebars.js');
+  const sidebarPath = path.join(process.cwd(), 'sidebars.js');
   const requires = sectionDirectories.map(sectionDirectory => `require('./docs/${sectionDirectory}/sidebar.js')`);
 
   const fileContent = `module.exports = {

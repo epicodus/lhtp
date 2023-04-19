@@ -2,11 +2,11 @@
 
 import path from "path";
 import lodash from "lodash";
-import { createDirectory } from "./utils.js";
-import { generateCategoryFile } from "./generateCategoryFile.js";
-import { fetchDocusaurusDocs } from "./fetchGithubContent.js";
-import { generateFrontMatter } from "./generateFrontMatter.js";
-import { generateSectionSidebar } from "./generateSidebar.js";
+import { createDirectory } from "./utils.mjs";
+import { generateCategoryFile } from "./generateCategoryFile.mjs";
+import { fetchDocusaurusDocs } from "./fetchGithubContent.mjs";
+import { generateFrontMatter } from "./generateFrontMatter.mjs";
+import { generateSectionSidebar } from "./generateSidebar.mjs";
 
 export async function fetchSection({ sectionLayout, docsPath }) {
   const { section, order, directory, repo, lessons } = sectionLayout;
