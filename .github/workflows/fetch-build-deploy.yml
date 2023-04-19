@@ -1,3 +1,5 @@
+# This is a reusable workflow, called by curriculum repo workflows,
+# so context is that of the caller curriculum repo
 name: Fetch docs, build, and deploy Docusaurus site
 run-name: Fetch docs, build, and deploy Docusaurus site
 
@@ -13,9 +15,12 @@ on:
         required: true
       CURRICULUM_GITHUB_APP_PEM:
         required: true
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+      LHTP_GITHUB_APP_ID:
+        required: true
+      LHTP_GITHUB_INSTALLATION_ID:
+        required: true
+      LHTP_GITHUB_APP_PEM:
+        required: true
 
 jobs:
   run_script:
@@ -24,7 +29,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          repository: 'epicodus/lhtp'
+          repository: epicodus/lhtp
 
       - name: Setup node
         uses: actions/setup-node@v3
@@ -34,6 +39,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate Epicodus Curriculum GitHub App token
+        uses: peaceiris/actions-github-app-token@v1
+        id: curriculum-app-token
+        with:
+          app_id: ${{ secrets.CURRICULUM_GITHUB_APP_ID }}
+          installation_id: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
+          private_key: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
+
+      - name: Generate Epicodus LHTP GitHub App token
+        uses: peaceiris/actions-github-app-token@v1
+        id: lhtp-app-token
+        with:
+          app_id: ${{ secrets.LHTP_GITHUB_APP_ID }}
+          installation_id: ${{ secrets.LHTP_GITHUB_INSTALLATION_ID }}
+          private_key: ${{ secrets.LHTP_GITHUB_APP_PEM }}
+
       - name: Fetch docs
         run: npm run fetch
         env:
@@ -41,6 +62,7 @@ jobs:
           APP_ID: ${{ secrets.CURRICULUM_GITHUB_APP_ID }}
           INSTALLATION_ID: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
           PRIVATE_KEY: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
+          # CURRICULUM_GITHUB_APP_TOKEN: ${{ steps.curriculum-app-token.outputs.token }}
 
       - name: Build site
         run: npm run build
@@ -48,7 +70,9 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ steps.lhtp-app-token.outputs.token }}
+          external_repository: epicodus/lhtp
+          publish_branch: gh-pages
           publish_dir: ./build
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
