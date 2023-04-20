@@ -15,7 +15,7 @@ export function reactifyStyles(content) {
 
   function convertStyleToReactFormat(match, styleStr) {
     const convertedStyleStr = styleStr.split(';').join(', ');
-    console.log(`replacing style=${styleStr} with style={{${convertedStyleStr}}}`);
+    // console.log(`replacing style=${styleStr} with style={{${convertedStyleStr}}}`);
     return `style={{${convertedStyleStr}}}`;
   }
 

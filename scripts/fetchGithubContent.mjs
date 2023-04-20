@@ -37,10 +37,10 @@ async function fetchGithubContent({ repo, directory='', documents }) {
       Authorization: `Bearer ${installationAccessToken}`,
     },
   });
-  console.log(`\nRetrieving ${documents.length} file(s) from ${repo}/${directory}`);
+  // console.log(`\nRetrieving ${documents.length} file(s) from ${repo}/${directory}`);
   let fetchedDocuments = [];
   for (const doc of documents) {
-    console.log('fetching', doc.filename);
+    // console.log('fetching', doc.filename);
     const response = await client.get(doc.filename);
     fetchedDocuments.push({ ...doc, content: response.data });
   }

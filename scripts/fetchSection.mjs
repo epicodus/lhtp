@@ -12,7 +12,6 @@ export async function fetchSection({ sectionLayout, docsPath, show_weeks_and_day
   const { section, order, directory, repo, lessons } = sectionLayout;
   const outDir = path.join(docsPath, directory);
 
-  // console.log(`Fetching section ${sectionLayoutFilePath}...`)
   const updatedLessons = addLessonMetadata({ lessons, repo, directory, show_weeks_and_days });
   createDirectory(outDir);
   fetchLessons({ repo, directory, outDir, lessons: updatedLessons });
