@@ -1,6 +1,6 @@
 # this workflow is triggered manually, so the context is the repo from which it is run
-name: Fetch docs, build, and deploy Docusaurus site (manually triggered)
-run-name: Fetch docs, build, and deploy Docusaurus site (manually triggered)
+name: Manual Trigger - Fetch docs, build, and deploy Docusaurus site
+run-name: Manual Trigger - Fetch docs, build, and deploy Docusaurus site
 
 on:
   workflow_dispatch:
