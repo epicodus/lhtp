@@ -4,7 +4,7 @@ import { titleToId } from './utils.mjs';
 export function generateFrontMatter(lesson) {
   const { title, number, day, numberDay, type, isFirst, isLast } = lesson;
   const id = titleToId(title);
-  const updatedTitle = type === 'lesson' ? `${numberDay}. 📓 ${title}`  : `${numberDay}. ✏️ ${title}`;
+  const updatedTitle = `${numberDay}. ${title}`;
 
   const frontMatter = {
     title: updatedTitle,
