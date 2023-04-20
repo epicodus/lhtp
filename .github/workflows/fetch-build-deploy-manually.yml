@@ -20,13 +20,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate Epicodus Curriculum GitHub App token
+        uses: peaceiris/actions-github-app-token@v1
+        id: curriculum-app-token
+        with:
+          app_id: ${{ secrets.CURRICULUM_GITHUB_APP_ID }}
+          installation_id: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
+          private_key: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
+
       - name: Fetch docs
         run: npm run fetch
         env:
           ORG: ${{ secrets.CURRICULUM_ORG }}
-          APP_ID: ${{ secrets.CURRICULUM_GITHUB_APP_ID }}
-          INSTALLATION_ID: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
-          PRIVATE_KEY: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
+          INSTALLATION_TOKEN: ${{ steps.curriculum-app-token.outputs.token }}
+          # APP_ID: ${{ secrets.CURRICULUM_GITHUB_APP_ID }}
+          # INSTALLATION_ID: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
+          # PRIVATE_KEY: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
 
       - name: Build site
         run: npm run build
