@@ -22,7 +22,7 @@ import { generateSiteSidebar } from "./generateSidebar.mjs";
 
 async function fetchCourse() {
   const courseLayoutPath = await fetchLayoutFile(COURSE_LAYOUT_FILENAME);
-  const { title, homepage, sections } = await readYamlFile(courseLayoutPath);
+  const { title, show_weeks_and_days, homepage, sections } = await readYamlFile(courseLayoutPath);
 
   const sectionDirectories = [];
 
@@ -32,7 +32,8 @@ async function fetchCourse() {
     sectionDirectories.push(sectionLayout.directory);
     fetchSection({  
       sectionLayout,
-      docsPath: LOCAL_DOCS_PATH
+      docsPath: LOCAL_DOCS_PATH,
+      show_weeks_and_days
     });
   }
 

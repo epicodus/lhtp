@@ -6,21 +6,28 @@ import lodash from 'lodash';
 import matter from 'gray-matter';
 import { titleToId } from './utils.mjs';
 
-export function generateSectionSidebar({ title, number, lessons, outDir }) {
+export function generateSectionSidebar({ title, number, lessons, outDir, show_weeks_and_days }) {
   const sidebarPath = path.join(outDir, 'sidebar.js');
 
-  const groupedLessons = Object.values(lodash.groupBy(lessons, lesson => lesson.day));
-
-  const days = groupedLessons.map(lessonGroup => ({
-    type: 'category',
-    label: lessonGroup[0].day.toUpperCase(),
-    items: lessonGroup.map(lesson => `${outDir.split('_').slice(1).join('_')}/${matter(lesson.frontMatter).data.id}`)
-  }));
-
-  const sidebar = {
-    type: 'category',
-    label: `[wk${number}] ${title}`,
-    items: days
+  let sidebar = {};
+  if(show_weeks_and_days) {
+    const groupedLessons = Object.values(lodash.groupBy(lessons, lesson => lesson.day));
+    const days = groupedLessons.map(lessonGroup => ({
+      type: 'category',
+      label: lessonGroup[0].day.toUpperCase(),
+      items: lessonGroup.map(lesson => `${outDir.split('_').slice(1).join('_')}/${matter(lesson.frontMatter).data.id}`)
+    }));
+    sidebar = {
+      type: 'category',
+      label: `[wk${number}] ${title}`,
+      items: days
+    }
+  } else {
+    sidebar = {
+      type: 'category',
+      label: `${title}`,
+      items: lessons.map(lesson => `${outDir.split('_').slice(1).join('_')}/${matter(lesson.frontMatter).data.id}`)
+    }
   }
 
   const fileContent = `module.exports = ${JSON.stringify(sidebar, null, 2)};`;

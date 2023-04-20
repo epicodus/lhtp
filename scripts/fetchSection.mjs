@@ -8,19 +8,19 @@ import { fetchDocusaurusDocs } from "./fetchGithubContent.mjs";
 import { generateFrontMatter } from "./generateFrontMatter.mjs";
 import { generateSectionSidebar } from "./generateSidebar.mjs";
 
-export async function fetchSection({ sectionLayout, docsPath }) {
+export async function fetchSection({ sectionLayout, docsPath, show_weeks_and_days }) {
   const { section, order, directory, repo, lessons } = sectionLayout;
   const outDir = path.join(docsPath, directory);
 
   // console.log(`Fetching section ${sectionLayoutFilePath}...`)
-  const updatedLessons = addLessonMetadata({ lessons, repo, directory });
+  const updatedLessons = addLessonMetadata({ lessons, repo, directory, show_weeks_and_days });
   createDirectory(outDir);
   fetchLessons({ repo, directory, outDir, lessons: updatedLessons });
   generateCategoryFile({ section, order, outDir });
-  generateSectionSidebar({ title: section, number: order, outDir, lessons: updatedLessons });
+  generateSectionSidebar({ title: section, number: order, outDir, lessons: updatedLessons, show_weeks_and_days });
 }
 
-const addLessonMetadata = ({ lessons, repo, directory }) => {
+const addLessonMetadata = ({ lessons, repo, directory, show_weeks_and_days }) => {
   const dayCount = { "weekend": 0, "monday": 0, "tuesday": 0, "wednesday": 0, "thursday": 0, "friday": 0 };
   return lessons.map((lesson, i) => ({
     ...lesson,
@@ -31,6 +31,7 @@ const addLessonMetadata = ({ lessons, repo, directory }) => {
     isLast: i === lessons.length - 1,
     frontMatter: generateFrontMatter({
       ...lesson,
+      show_weeks_and_days,
       number: i,
       numberDay: nextNumber(dayCount, lesson.day)
     })

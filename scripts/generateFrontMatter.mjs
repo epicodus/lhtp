@@ -1,10 +1,10 @@
 import matter from 'gray-matter';
 import { titleToId } from './utils.mjs';
 
-export function generateFrontMatter(lesson) {
+export function generateFrontMatter(lesson, show_weeks_and_days) {
   const { title, number, day, numberDay, type, isFirst, isLast } = lesson;
   const id = titleToId(title);
-  const updatedTitle = `${numberDay}. ${title}`;
+  const updatedTitle = show_weeks_and_days ? `${numberDay}. ${title}` : `${number + 1}. ${title}`;
 
   const frontMatter = {
     title: updatedTitle,
