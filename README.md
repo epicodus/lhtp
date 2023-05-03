@@ -30,6 +30,9 @@ Run the following:
 npm run fetch
 ```
 
+This will build the docs directory, generate front matter and sidebars. It will also fetch static homepages and images. 
+Images are placed in subdirectories of `static/images` named the same as the repo (e.g. `static/images/intro-curriculum`).
+
 ---
 
 ## Docusaurus
