@@ -2,36 +2,39 @@
 
 This is a rewrite of LHTP using Docusaurus 2, a React-based static site generator.
 
-## Pulling course docs from GitHub
+# Breaking changes - 2023-05-03
+
+I moved everything into the main npm module, so you no longer need to run the fetch scripts from a submodule. You can now just use `npm run fetch` from the main project directory to fetch docs and images.
+
+I've also changed the environment variables to be compatible with the deployment Github actions workflow. Note the changed names and the fact that PRIVATE_KEY is now the key itself, not the path to the file.
+
+## Pulling course docs and images from GitHub
 
 The scripts to pull content from private GitHub repos are written to work with a GitHub App.
 
-**_Note that these scripts are a separate npm module, located in the `scripts` directory._**
+For local development, add the following to `.env`:
 
-Add the following to `.env` within the `scripts` directory:
-
-#### **`scripts/.env`**
+#### **`.env`**
 ```
-GITHUB_USER = 'GITHUB_USER_OR_ORG_NAME'
-GITHUB_INSTALLATION_ID = 'GITHUB_APP_INSTALLATION_ID'
-GITHUB_APP_ID = 'GITHUB_APP_ID'
-GITHUB_APP_PEM_PATH = 'LOCAL_PATH_TO_GITHUB_APP_KEY_PEM_FILE'
+ORG = 'GITHUB_USER_OR_ORG_NAME'
+APP_ID = 'GITHUB_APP_ID'
+INSTALLATION_ID = 'GITHUB_APP_INSTALLATION_ID'
+PRIVATE_KEY = 'GITHUB_APP_PEM_KEY'
 ```
 
 Replace values defined at top of `scripts/fetchCourse.js`
 
-Run the following **from within the `scripts` directory**:
+Run the following:
 
 ```
-npm install
-npm start
+npm run fetch
 ```
 
 ---
 
 ## Docusaurus
 
-Once the docs are in place in the `docs` folder, you can run Docusaurus itself.
+Once the docs are in place in the `docs` folder and the images in `static/images`, you can run Docusaurus itself.
 
 ### Installation
 

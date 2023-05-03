@@ -2,12 +2,13 @@
 // For Github workflow, set ORG and INSTALLATION_TOKEN env variables
 // For local use, set ORG, PRIVATE_KEY, APP_ID, INSTALLATION_ID env variables
 
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import axios from "axios";
 import "dotenv/config";
 import { reactifyStyles } from "./utils.mjs";
 import { getInstallationAccessToken } from "./getInstallationToken.mjs";
+import { execSync } from 'child_process';
 
 const { ORG } = process.env;
 const INSTALLATION_ACCESS_TOKEN = process.env.INSTALLATION_TOKEN || await getInstallationAccessToken();
@@ -23,6 +24,19 @@ export async function fetchDocusaurusDocs({ repo, directory='', outDir, document
   for (const { filename, content, frontMatter } of fetchedDocuments) {
     const mdx = frontMatter + reactifyStyles(content);
     fs.writeFileSync(path.join(outDir, filename), mdx);
+  }
+}
+
+export async function fetchImages({ repo, directory, outDir, tmpDir }) {
+  const repoUrl = `https://github.com/${ORG}/${repo}`;
+  const tempImagesPath = path.join(tmpDir, 'temp_images');
+  try {
+    execSync(`git clone ${repoUrl} ${tempImagesPath}`);
+    await fs.copy(path.join(tempImagesPath, directory), outDir);
+    await fs.remove(tempImagesPath);
+    console.log('Images copied successfully.');
+  } catch (error) {
+    console.error('Error copying images:', error);
   }
 }
 
