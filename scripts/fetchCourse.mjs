@@ -11,7 +11,7 @@ const FETCH_IMAGES = true; // set to false if you don't want to download images
 // These paths are relative to the project root if run via npm / package.json
 const LOCAL_DOCS_PATH = path.join(process.cwd(), 'docs'); // path to docusaurus docs directory (likely 'docs')
 const LOCAL_STATIC_ASSETS_PATH = path.join(process.cwd(), 'static'); // path to docusaurus static assets dir (likely 'static')
-const LOCAL_STATIC_IMAGES_PATH = path.join(LOCAL_STATIC_ASSETS_PATH, 'images'); // path to docusaurus static images dir (likely 'static/images')
+const LOCAL_IMAGES_PATH = path.join(LOCAL_STATIC_ASSETS_PATH, 'images'); // path to docusaurus static images dir (likely 'static/images')
 const SCRATCH_DIRECTORY_PATH = path.join(process.cwd(), 'tmp'); // any directory that can be safely deleted
 
 // **************************************************** //
@@ -74,7 +74,7 @@ async function fetchCourse() {
     fetchImages({
       repo: REMOTE_COURSE_LAYOUT_REPO,
       directory: REMOTE_COURSE_IMAGES_DIRECTORY,
-      outDir: LOCAL_STATIC_IMAGES_PATH,
+      imagesDir: LOCAL_IMAGES_PATH,
       tmpDir: SCRATCH_DIRECTORY_PATH
     });
   } else {
@@ -92,5 +92,5 @@ async function fetchLayoutFile(filename) {
   return path.join(SCRATCH_DIRECTORY_PATH, filename);
 }
 
-clearDirectories([LOCAL_DOCS_PATH, SCRATCH_DIRECTORY_PATH, LOCAL_STATIC_IMAGES_PATH]);
+clearDirectories([LOCAL_DOCS_PATH, SCRATCH_DIRECTORY_PATH, LOCAL_IMAGES_PATH]);
 fetchCourse();

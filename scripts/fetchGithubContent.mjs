@@ -27,12 +27,14 @@ export async function fetchDocusaurusDocs({ repo, directory='', outDir, document
   }
 }
 
-export async function fetchImages({ repo, directory, outDir, tmpDir }) {
+export async function fetchImages({ repo, directory, imagesDir, tmpDir }) {
   const repoUrl = `https://github.com/${ORG}/${repo}`;
   const tempImagesPath = path.join(tmpDir, 'temp_images');
+  const imagesPath = path.join(imagesDir, repo);
   try {
     execSync(`git clone ${repoUrl} ${tempImagesPath}`);
-    await fs.copy(path.join(tempImagesPath, directory), outDir);
+    await fs.ensureDir(imagesPath)
+    await fs.copy(path.join(tempImagesPath, directory), imagesPath);
     await fs.remove(tempImagesPath);
     console.log('Images copied successfully.');
   } catch (error) {

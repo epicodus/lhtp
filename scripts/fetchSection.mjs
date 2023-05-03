@@ -1,8 +1,8 @@
 // script to go through YAML layout file for a section/week, fetch content from GitHub, write to appropriate directories
 
+import fs from "fs-extra";
 import path from "path";
 import lodash from "lodash";
-import { createDirectory } from "./utils.mjs";
 import { generateCategoryFile } from "./generateCategoryFile.mjs";
 import { fetchDocusaurusDocs } from "./fetchGithubContent.mjs";
 import { generateFrontMatter } from "./generateFrontMatter.mjs";
@@ -13,7 +13,7 @@ export async function fetchSection({ sectionLayout, docsPath, show_weeks_and_day
   const outDir = path.join(docsPath, directory);
 
   const updatedLessons = addLessonMetadata({ lessons, repo, directory, show_weeks_and_days });
-  createDirectory(outDir);
+  await fs.ensureDir(outDir);
   fetchLessons({ repo, directory, outDir, lessons: updatedLessons });
   generateCategoryFile({ section, order, outDir });
   generateSectionSidebar({ title: section, number: order, outDir, lessons: updatedLessons, show_weeks_and_days });

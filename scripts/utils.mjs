@@ -29,7 +29,7 @@ export function reactifyStyles(content) {
 export function clearDirectories(dirPaths) {
   for (const dirPath of dirPaths) {
     eraseDirectory(dirPath);
-    createDirectory(dirPath);
+    fs.mkdirSync(dirPath);
   }
 }
 
@@ -37,10 +37,6 @@ function eraseDirectory(dirPath) {
   if (fs.existsSync(dirPath)) {
     fs.rmSync(dirPath, { recursive: true, force: true });
   }
-}
-
-export function createDirectory(dirPath) {
-  fs.mkdirSync(dirPath);
 }
 
 export function readYamlFile(filePath) {
