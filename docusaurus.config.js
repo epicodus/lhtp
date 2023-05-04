@@ -40,37 +40,12 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-
-  // plugins: [
-  //   [
-  //     require.resolve("./plugins/fetch-github-content"),
-  //     {
-  //       repo: 'testing',
-  //       outDir: 'docs',
-  //       filenames: ['README.md', 'dei_1_independent_project.md']
-  //     }
-  //   ]
-  // ],
-
-  // plugins: [
-  //   [
-  //     "docusaurus-plugin-remote-content",
-  //     {
-  //         name: "some-content", // used by CLI, must be path safe
-  //         sourceBaseUrl: "https://raw.githubusercontent.com/epicodus-classroom/testing/main", // the base url for the markdown (gets prepended to all of the documents when fetching)
-  //         outDir: "docs", // the base directory to output to.
-  //         documents: ["README.md"], // the file names to download
-  //         request_config: {
-  //           baseURL: 'https://api.github.com/repos/epicodus-classroom/testing',
-  //           headers: {
-  //             Accept: 'application/vnd.github.raw+json',
-  //             Authorization: `Bearer ${getInstallationAccessToken()}`,
-  //           },
-  //         }
-  //     },
-  //   ],
-  // ],
-
+  scripts: [
+    {
+      src: '/lhtp/usersnap-loader.js',
+      defer: true,
+    },
+  ],
   presets: [
     [
       'classic',
