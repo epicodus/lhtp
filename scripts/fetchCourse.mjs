@@ -1,11 +1,11 @@
 // script to go through YAML *course* layout file and call fetchSection for each section/week
 
 // UPDATE THESE VALUES TO POINT TO REPO / DIRECTORY / FILENAME OF COURSE LAYOUT FILE
-const REMOTE_COURSE_LAYOUT_REPO = 'intro-curriculum';
-const REMOTE_COURSE_LAYOUT_DIRECTORY = 'layouts-lhtp2';
+const REMOTE_COURSE_LAYOUT_REPO = 'test-intro';
+const REMOTE_COURSE_LAYOUT_DIRECTORY = 'layouts';
 const REMOTE_COURSE_IMAGES_DIRECTORY = 'images';
 const COURSE_LAYOUT_FILENAME = 'intro-course-layout.yaml';
-const FETCH_IMAGES = false; // set to false if you don't want to download images
+const FETCH_IMAGES = true; // set to false if you don't want to download images
 
 // You probably don't need to edit these values
 // These paths are relative to the project root if run via npm / package.json
