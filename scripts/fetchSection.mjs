@@ -30,6 +30,8 @@ const addLessonMetadata = ({ lessons, repo, directory, show_weeks_and_days }) =>
     isLast: i === lessons.length - 1,
     frontMatter: generateFrontMatter({
       ...lesson,
+      repo: lesson.repo || repo,
+      directory: lesson.directory || directory,
       show_weeks_and_days,
       number: i,
       numberDay: nextNumber(dayCount, lesson.day)
