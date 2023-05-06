@@ -1,96 +1,77 @@
 // script to go through YAML *course* layout file and call fetchSection for each section/week
 
-// UPDATE THESE VALUES TO POINT TO REPO / DIRECTORY / FILENAME OF COURSE LAYOUT FILE
-const REMOTE_COURSE_LAYOUT_REPO = 'test-intro';
-const REMOTE_COURSE_LAYOUT_DIRECTORY = 'layouts';
-const REMOTE_COURSE_IMAGES_DIRECTORY = 'images';
-const COURSE_LAYOUT_FILENAME = 'intro-course-layout.yaml';
-const FETCH_IMAGES = true; // set to false if you don't want to download images
-
-// You probably don't need to edit these values
-// These paths are relative to the project root if run via npm / package.json
-const LOCAL_DOCS_PATH = path.join(process.cwd(), 'docs'); // path to docusaurus docs directory (likely 'docs')
-const LOCAL_STATIC_ASSETS_PATH = path.join(process.cwd(), 'static'); // path to docusaurus static assets dir (likely 'static')
-const LOCAL_IMAGES_PATH = path.join(LOCAL_STATIC_ASSETS_PATH, 'images'); // path to docusaurus static images dir (likely 'static/images')
-const SCRATCH_DIRECTORY_PATH = path.join(process.cwd(), 'tmp'); // any directory that can be safely deleted
-
-// **************************************************** //
-// User shouldn't need to edit anything below this line //
-// **************************************************** //
-
 import path from "path";
-import { clearDirectories, readYamlFile } from "./utils.mjs";
+import { readYamlFile } from "./utils.mjs";
 import { fetchSection } from "./fetchSection.mjs";
 import { fetchFile } from "./fetchGithubContent.mjs";
-import { generateSiteSidebar } from "./generateSidebar.mjs";
+import { generateCourseSidebar } from "./generateSidebar.mjs";
 import { fetchImages } from "./fetchGithubContent.mjs";
+import { titleToId } from "./utils.mjs";
 
-async function fetchCourse() {
-  const courseLayoutPath = await fetchLayoutFile(COURSE_LAYOUT_FILENAME);
-  const { title, show_weeks_and_days, homepage, sections } = await readYamlFile(courseLayoutPath);
+// the below assumes layout files for course and all sections in the course are in the same repo and directory
+export async function fetchCourse({ repo, directory, filename, LOCAL_DOCS_PATH, LOCAL_IMAGES_PATH, REPO_IMAGES_PATH, SCRATCH_DIRECTORY_PATH, FETCH_IMAGES }) {
+  const docsCoursePath = path.join(LOCAL_DOCS_PATH, titleToId(repo));
+  const courseLayoutPath = await fetchLayoutFile({ repo, directory, filename, SCRATCH_DIRECTORY_PATH });
+  const { title, homepage, show_weeks_and_days, sections } = await readYamlFile(courseLayoutPath);
 
   const sectionDirectories = [];
-
   for (const layoutFile of sections) {
-    const sectionLayoutFilePath = await fetchLayoutFile(layoutFile);
+    const sectionLayoutFilePath = await fetchLayoutFile({ repo, directory, filename: layoutFile, SCRATCH_DIRECTORY_PATH });
     const sectionLayout = await readYamlFile(sectionLayoutFilePath);
     sectionDirectories.push(sectionLayout.directory);
     fetchSection({  
       sectionLayout,
-      docsPath: LOCAL_DOCS_PATH,
+      docsCoursePath,
       show_weeks_and_days
     });
   }
 
-  generateSiteSidebar({ title, sectionDirectories });
-
-  // download site-wide static pages (homepage, courses list, handbook)
-  fetchFile({
-    repo: 'testing',
-    filename: 'site-home.md',
-    outDir: LOCAL_DOCS_PATH
-  });
-  fetchFile({
-    repo: 'testing',
-    filename: 'courses.md',
-    outDir: LOCAL_DOCS_PATH
-  });
-  fetchFile({
-    repo: 'soft-skills-and-job-prep-curriculum',
-    directory: 'student-handbook',
-    filename: 'student-handbook.md',
-    outDir: LOCAL_DOCS_PATH
+  generateCourseSidebar({
+    title,
+    docsCoursePath,
+    sectionDirectories
   });
 
-  // download course homepage
-  fetchFile({
-    repo: homepage.repo || REMOTE_COURSE_LAYOUT_REPO,
-    directory: homepage.directory || '',
-    filename: homepage.filename,
-    outDir: LOCAL_DOCS_PATH
+  fetchCourseHomepage({
+    homepage,
+    repo,
+    outDir: docsCoursePath
   });
 
   if (FETCH_IMAGES) {
-    fetchImages({
-      repo: REMOTE_COURSE_LAYOUT_REPO,
-      directory: REMOTE_COURSE_IMAGES_DIRECTORY,
-      imagesDir: LOCAL_IMAGES_PATH,
-      tmpDir: SCRATCH_DIRECTORY_PATH
+    fetchCourseImages({
+      repo,
+      REPO_IMAGES_PATH,
+      LOCAL_IMAGES_PATH,
+      SCRATCH_DIRECTORY_PATH
     });
-  } else {
-    console.log('Skipping image fetch step.');
   }
 }
 
-async function fetchLayoutFile(filename) {
+function fetchCourseHomepage({ homepage, repo, outDir }) {
+  fetchFile({
+    repo: homepage.repo || repo,
+    directory: homepage.directory || '',
+    filename: homepage.filename,
+    outDir
+  });
+}
+
+async function fetchLayoutFile({ repo, directory, filename, SCRATCH_DIRECTORY_PATH }) {
   await fetchFile({
-    repo: REMOTE_COURSE_LAYOUT_REPO,
-    directory: REMOTE_COURSE_LAYOUT_DIRECTORY,
+    repo,
+    directory,
+    filename,
     outDir: SCRATCH_DIRECTORY_PATH,
-    filename
   });
   return path.join(SCRATCH_DIRECTORY_PATH, filename);
 }
 
-clearDirectories([LOCAL_DOCS_PATH, SCRATCH_DIRECTORY_PATH, LOCAL_IMAGES_PATH]);
-fetchCourse();
+function fetchCourseImages({ repo, REPO_IMAGES_PATH, LOCAL_IMAGES_PATH, SCRATCH_DIRECTORY_PATH }) {
+  fetchImages({
+    repo: repo,
+    directory: REPO_IMAGES_PATH,
+    imagesDir: LOCAL_IMAGES_PATH,
+    tmpDir: SCRATCH_DIRECTORY_PATH
+  });
+}

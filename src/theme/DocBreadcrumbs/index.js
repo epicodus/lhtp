@@ -15,13 +15,7 @@ import useFrontMatter from '@theme/useFrontMatter';
 function BreadcrumbsItemLink({children, href, isLast}) {
   const className = 'breadcrumbs__link';
   if (isLast) {
-    const { url } = useFrontMatter();
-    href = url;
-    // return (
-    //   <span className={className} itemProp="name">
-    //     {children}
-    //   </span>
-    // );
+    href = useFrontMatter().url;
   }
   return href ? (
     <Link className={className} href={href} itemProp="item">

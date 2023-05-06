@@ -3,20 +3,35 @@
 import fs from "fs-extra";
 import path from "path";
 import lodash from "lodash";
-import { generateCategoryFile } from "./generateCategoryFile.mjs";
 import { fetchDocusaurusDocs } from "./fetchGithubContent.mjs";
 import { generateFrontMatter } from "./generateFrontMatter.mjs";
 import { generateSectionSidebar } from "./generateSidebar.mjs";
 
-export async function fetchSection({ sectionLayout, docsPath, show_weeks_and_days }) {
+export async function fetchSection({ sectionLayout, docsCoursePath, show_weeks_and_days }) {
   const { section, order, directory, repo, lessons } = sectionLayout;
-  const outDir = path.join(docsPath, directory);
-
-  const updatedLessons = addLessonMetadata({ lessons, repo, directory, show_weeks_and_days });
+  const outDir = path.join(docsCoursePath, directory);
   await fs.ensureDir(outDir);
-  fetchLessons({ repo, directory, outDir, lessons: updatedLessons });
-  generateCategoryFile({ section, order, outDir });
-  generateSectionSidebar({ title: section, number: order, outDir, lessons: updatedLessons, show_weeks_and_days });
+
+  const updatedLessons = addLessonMetadata({
+    lessons,
+    repo,
+    directory,
+    show_weeks_and_days
+  });
+
+  fetchLessons({
+    lessons: updatedLessons,
+    outDir
+  });
+  
+  generateSectionSidebar({
+    title: section,
+    number: order,
+    lessons: updatedLessons,
+    show_weeks_and_days,
+    repo,
+    outDir
+  });
 }
 
 const addLessonMetadata = ({ lessons, repo, directory, show_weeks_and_days }) => {
@@ -50,10 +65,10 @@ async function fetchLessons({ lessons, outDir }) {
     const { repo, directory } = lessonGroup[0];
     const documents = lessonGroup.map(({filename, frontMatter}) => ({ filename, frontMatter }));
     await fetchDocusaurusDocs({
-      outDir,
       repo,
       directory,
-      documents
+      documents,
+      outDir
     });
   }
 }

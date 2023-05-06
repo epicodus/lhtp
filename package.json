@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "fetch": "node scripts/fetchCourse.mjs",
+    "fetch": "node scripts/fetchCurriculum.mjs",
     "start": "docusaurus start",
     "build": "docusaurus build",
     "deploy": "docusaurus deploy",
