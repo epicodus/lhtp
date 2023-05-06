@@ -5,6 +5,7 @@ import path from 'path';
 import lodash from 'lodash';
 import matter from 'gray-matter';
 import { titleToId } from './utils.mjs';
+import config from './config.mjs';
 
 export function generateSectionSidebar({ title, number, lessons, show_weeks_and_days, outDir }) {
   const sidebarPath = path.join(outDir, 'sidebar.js');
@@ -50,7 +51,7 @@ export function generateCourseSidebar({ title, sectionDirectories, docsCoursePat
 }
 
 export function generateTopLevelSidebar({ docsCoursePaths }) {
-  const sidebarPath = path.join(process.cwd(), 'sidebars.js');
+  const sidebarPath = path.join(config.root_path, 'sidebars.js');
   const requires = docsCoursePaths.map(coursePath => `${titleToId(coursePath.split('/').slice(-1)[0])}: require('${path.join(coursePath, 'sidebar.js')}')`);
 
   const fileContent = `module.exports = {

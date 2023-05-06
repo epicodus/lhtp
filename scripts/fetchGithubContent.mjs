@@ -9,13 +9,18 @@ import "dotenv/config";
 import { reactifyStyles } from "./utils.mjs";
 import { getInstallationAccessToken } from "./getInstallationToken.mjs";
 import { execSync } from 'child_process';
+import config from "./config.mjs";
 
-const { ORG } = process.env;
 const INSTALLATION_ACCESS_TOKEN = process.env.INSTALLATION_TOKEN || await getInstallationAccessToken();
 
-export async function fetchFile({ repo, directory='', outDir, filename }) {
-  const [{ content }] = await fetchGithubContent({ repo, directory, documents: [{ filename }] });
-  fs.writeFileSync(path.join(outDir, filename), content);
+export async function fetchLayoutFile({ repo, directory, filename }) {
+  await fetchFile({
+    repo,
+    directory,
+    filename,
+    outDir: config.scratch_directory_path,
+  });
+  return path.join(config.scratch_directory_path, filename);
 }
 
 export async function fetchDocusaurusDocs({ repo, directory='', outDir, documents }) {
@@ -27,14 +32,14 @@ export async function fetchDocusaurusDocs({ repo, directory='', outDir, document
   }
 }
 
-export async function fetchImages({ repo, directory, imagesDir, tmpDir }) {
-  const repoUrl = `https://github.com/${ORG}/${repo}`;
-  const tempImagesPath = path.join(tmpDir, 'temp_images');
-  const imagesPath = path.join(imagesDir, repo);
+export async function fetchImages({ repo }) {
+  const repoUrl = `https://github.com/${config.org}/${repo}`;
+  const tempImagesPath = path.join(config.scratch_directory_path, 'temp_images');
+  const imagesPath = path.join(config.local_images_path, repo);
   try {
     execSync(`git clone ${repoUrl} ${tempImagesPath}`);
     await fs.ensureDir(imagesPath)
-    await fs.copy(path.join(tempImagesPath, directory), imagesPath);
+    await fs.copy(path.join(tempImagesPath, config.repo_images_path), imagesPath);
     await fs.remove(tempImagesPath);
     console.log('Images copied successfully.');
   } catch (error) {
@@ -44,7 +49,7 @@ export async function fetchImages({ repo, directory, imagesDir, tmpDir }) {
 
 async function fetchGithubContent({ repo, directory='', documents }) {
   const client = axios.create({
-    baseURL: `https://api.github.com/repos/${ORG}/${repo}/contents/${directory}`,
+    baseURL: `https://api.github.com/repos/${config.org}/${repo}/contents/${directory}`,
     headers: {
       Accept: "application/vnd.github.raw+json",
       Authorization: `Bearer ${INSTALLATION_ACCESS_TOKEN}`,
@@ -58,4 +63,9 @@ async function fetchGithubContent({ repo, directory='', documents }) {
     fetchedDocuments.push({ ...doc, content: response.data });
   }
   return fetchedDocuments;
+}
+
+export async function fetchFile({ repo, directory='', outDir, filename }) {
+  const [{ content }] = await fetchGithubContent({ repo, directory, documents: [{ filename }] });
+  fs.writeFileSync(path.join(outDir, filename), content);
 }
