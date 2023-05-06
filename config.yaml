@@ -8,7 +8,7 @@
 #                                                                   #
 #####################################################################
 
-fetch_images: true
+fetch_images: false
 
 curriculum_layout:
   repo: shared-curriculum

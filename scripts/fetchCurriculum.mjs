@@ -9,15 +9,11 @@ import { titleToId } from "./utils.mjs";
 import config from "./config.mjs";
 
 async function fetchCurriculum() {
-  const curriculumLayoutFileConfig = config.curriculum_layout_file;
-  const curriculumLayoutPath = await fetchLayoutFile(curriculumLayoutFileConfig);
-  const { courses, site_homepage, courses_homepage, student_handbook } = await readYamlFile(curriculumLayoutPath);
+  const curriculumLayoutPath = await fetchLayoutFile(config.curriculum_layout_file);
+  const { course_layouts, site_homepage, courses_homepage, student_handbook } = await readYamlFile(curriculumLayoutPath);
 
   let docsCoursePaths = [];
-  for (const course of courses) {
-    const repo = course.split('/')[4];
-    const directory = course.split('/')[7];
-    const filename = course.split('/')[8];
+  for (const { repo, directory, filename } of course_layouts) {
     docsCoursePaths.push(path.join(config.local_docs_path, titleToId(repo)));
     await fetchCourse({
       repo,
