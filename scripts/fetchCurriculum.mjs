@@ -3,18 +3,16 @@
 import path from "path";
 import { clearDirectories, readYamlFile } from "./utils.mjs";
 import { fetchCourse } from "./fetchCourse.mjs";
-import { fetchFile, fetchLayoutFile } from "./fetchGithubContent.mjs";
+import { fetchLayoutFile, fetchStaticPage } from "./fetchGithubContent.mjs";
 import { generateTopLevelSidebar } from "./generateSidebar.mjs";
 import { titleToId } from "./utils.mjs";
 import config from "./config.mjs";
 
 async function fetchCurriculum() {
-  const curriculumLayoutPath = await fetchLayoutFile({
-    repo: 'shared-curriculum',
-    directory: 'lhtp2',
-    filename: 'curriculum-layout.yaml',
-  });
-  const { courses } = await readYamlFile(curriculumLayoutPath);
+  const curriculumLayoutFileConfig = config.curriculum_layout_file;
+  const curriculumLayoutPath = await fetchLayoutFile(curriculumLayoutFileConfig);
+  const { courses, site_homepage, courses_homepage, student_handbook } = await readYamlFile(curriculumLayoutPath);
+
   let docsCoursePaths = [];
   for (const course of courses) {
     const repo = course.split('/')[4];
@@ -31,22 +29,9 @@ async function fetchCurriculum() {
   generateTopLevelSidebar({ docsCoursePaths });
 
   // download site-wide static pages (homepage, courses list, handbook)
-  fetchFile({
-    repo: 'testing',
-    filename: 'site-home.md',
-    outDir: config.local_docs_path
-  });
-  fetchFile({
-    repo: 'testing',
-    filename: 'courses.md',
-    outDir: config.local_docs_path
-  });
-  fetchFile({
-    repo: 'soft-skills-and-job-prep-curriculum',
-    directory: 'student-handbook',
-    filename: 'student-handbook.md',
-    outDir: config.local_docs_path
-  });
+  fetchStaticPage(site_homepage);
+  fetchStaticPage(courses_homepage);
+  fetchStaticPage(student_handbook);
 }
 
 clearDirectories([

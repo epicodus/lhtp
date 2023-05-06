@@ -8,6 +8,8 @@ I moved everything into the main npm module, so you no longer need to run the fe
 
 I've also changed the environment variables to be compatible with the deployment Github actions workflow. Note the changed names and the fact that PRIVATE_KEY is now the key itself, not the path to the file.
 
+Other config variables are moved to config.yaml in the project root directory..
+
 ## Pulling course docs and images from GitHub
 
 The scripts to pull content from private GitHub repos are written to work with a GitHub App.
@@ -22,7 +24,7 @@ INSTALLATION_ID = 'GITHUB_APP_INSTALLATION_ID'
 PRIVATE_KEY = 'GITHUB_APP_PEM_KEY'
 ```
 
-Replace values defined at top of `scripts/fetchCourse.js`
+Update values if needed in `config.yaml` in project root directory.
 
 Run the following:
 

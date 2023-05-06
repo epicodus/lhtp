@@ -12,6 +12,7 @@ export async function loadConfig() {
   const scratch_directory_path = path.join(root_path, config.scratch_dir);
   const repo_images_path = config.images_input_dir;
   const local_images_path = path.join(local_static_assets_path, config.images_output_dir);
+  const curriculum_layout_file = config.curriculum_layout;
 
   const org = process.env.ORG;
 
@@ -23,7 +24,8 @@ export async function loadConfig() {
     local_static_assets_path,
     scratch_directory_path,
     repo_images_path,
-    local_images_path
+    local_images_path,
+    curriculum_layout_file
   };
 }
 

@@ -23,6 +23,15 @@ export async function fetchLayoutFile({ repo, directory, filename }) {
   return path.join(config.scratch_directory_path, filename);
 }
 
+export function fetchStaticPage({ repo, directory, filename }) {
+  fetchFile({
+    repo,
+    directory,
+    filename,
+    outDir: config.local_docs_path,
+  });
+}
+
 export async function fetchDocusaurusDocs({ repo, directory='', outDir, documents }) {
   const fetchedDocuments = await fetchGithubContent({ repo, directory, documents });
   console.log(`\nPreparing ${fetchedDocuments.length} file(s) for Docusaurus in ${outDir}`);
