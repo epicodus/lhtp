@@ -10,7 +10,7 @@
 /* @import '~bootstrap/dist/css/bootstrap.min.css'; */
 
 :root {
-  --ifm-color-primary: #007b7b; /* originally #2e8555 */
+  --ifm-color-primary: #1f7c8d; /* originally #2e8555, then #007b7b, then #236cac */
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;
   --ifm-color-primary-darkest: #205d3b;
@@ -34,6 +34,19 @@
 }
 
 
+article p a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+a.menu__link.menu__link--active {
+  font-weight: bold;
+}
+
+a.breadcrumbs__link span {
+  font-weight: bold;
+}
+
 /* Increased color contrast for accessibility */
 [data-theme='dark'] article p em {
   color: #f7f7f7;
@@ -46,4 +59,19 @@
 }
 [data-theme='dark'] .menu__link:not(.menu__link--active) {
   color: #ebf3ff;
+}
+
+[data-theme='dark'] article p a:hover {
+  color: #22e1e1;
+}
+[data-theme='light'] article p a:hover {
+  color: #149c9c;
+}
+
+[data-theme='light'] a.menu__link.menu__link--active {
+  color: #0f7385;
+}
+
+[data-theme='light'] a.breadcrumbs__link span {
+  color: #0f7385;
 }
