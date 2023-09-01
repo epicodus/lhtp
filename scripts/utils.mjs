@@ -1,4 +1,6 @@
-import fs from "fs";
+import fs from 'fs-extra';
+import { createTwoFilesPatch } from 'diff';
+import url from 'url';
 import yaml from "js-yaml";
 import inquirer from 'inquirer';
 
@@ -48,13 +50,13 @@ export function readYamlFile(filePath) {
   }
 }
 
-export async function confirmAction(message) {
+export async function confirmAction({ message, theDefault = false }) {
   const { confirmation } = await inquirer.prompt([
     {
       type: 'confirm',
       name: 'confirmation',
       message: message,
-      default: false,
+      default: theDefault,
     },
   ]);
   return Promise.resolve(confirmation); // returns boolean
@@ -62,4 +64,29 @@ export async function confirmAction(message) {
 
 export function titleToId(title) {
   return title.replace(/[-\s]/g, '_').replace(/[#:;-=?<>(),./]/g, '').toLowerCase();
+}
+
+export function parseGithubPath(path) {
+    const pathname = url.parse(path).pathname
+    const pathComponents = pathname.split('/').filter(Boolean);
+    const [_, repo, __, ___, ...restOfPath] = pathComponents;
+    const filename = restOfPath.pop();
+    const directory = restOfPath.join('/');
+    return { repo, directory, filename };
+}
+
+export function timeout() {
+  return new Promise(resolve => setTimeout(resolve, 50));
+}
+
+export async function canWriteFile(path, newContent) {
+  if (await fs.pathExists(path)) {
+    const existingContent = await fs.readFile(path, 'utf8');
+    if (existingContent !== newContent) {
+      const diff = createTwoFilesPatch(path, "New Content", existingContent, newContent);
+      console.error(`File content for ${path} does not match. Diff:\n${diff}`);
+      return false;
+    }
+  }
+  return true;
 }

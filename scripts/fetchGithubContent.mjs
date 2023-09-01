@@ -74,7 +74,12 @@ async function fetchGithubContent({ repo, directory='', documents }) {
   return fetchedDocuments;
 }
 
-export async function fetchFile({ repo, directory='', outDir, filename }) {
+export async function fetchFileContent({ repo, directory='', filename }) {
   const [{ content }] = await fetchGithubContent({ repo, directory, documents: [{ filename }] });
+  return content;
+}
+
+export async function fetchFile({ repo, directory='', outDir, filename }) {
+  const content = await fetchFileContent({ repo, directory, filename });
   fs.writeFileSync(path.join(outDir, filename), content);
 }
