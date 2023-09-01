@@ -49,11 +49,11 @@ const courseFilenames = [
   'react-part-time.yaml',
   'c-and-net.yaml',
   'c-and-net-part-time.yaml',
-  'workshops.yaml',
-  'diversity-equity-and-inclusion.yaml',
-  'computer-science.yaml',
-  'internship-and-job-search.yaml',
-  'journaling-curriculum.yaml',
+  // 'workshops.yaml',
+  // 'diversity-equity-and-inclusion.yaml',
+  // 'computer-science.yaml',
+  // 'internship-and-job-search.yaml',
+  // 'journaling-curriculum.yaml',
   // 'fidgetech-1-introduction-to-programming-with-jquery.yaml',
   // 'fidgetech-1-introduction-to-programming.yaml',
   // 'fidgetech-2-intermediate-javascript-with-jquery.yaml',
@@ -63,6 +63,7 @@ const courseFilenames = [
 ];
 
 for (const filename of courseFilenames) {
+  console.log(`\n***\nProcessing course ${filename}...\n***\n`)
   // load course layout data
   const inputPath = join('scripts', 'inputs', filename);
   const courseData = jsYaml.load(fs.readFileSync(inputPath, 'utf8'));
