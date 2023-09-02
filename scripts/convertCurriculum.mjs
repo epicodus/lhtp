@@ -33,7 +33,7 @@ const repoMappings = {
 // keep lessons in these repos rather than moving them to section repo
 const maintainRepoMappings = {
   'soft-skills-and-job-prep-curriculum': 'career-services-full-stack',
-  'admissions-materials': 'career-services-full-stack',
+  'admissions-materials': 'pre-work-full-stack',
   'dei-curriculum': 'DEI-full-stack',
   'shared-curriculum': 'shared-full-stack',
   'prework-curriculum': 'pre-work-full-stack',
@@ -43,12 +43,12 @@ const courseFilenames = [
   'prework.yaml',
   'introduction-to-programming.yaml',
   'introduction-to-programming-part-time.yaml',
-  'intermediate-javascript.yaml',
-  'intermediate-javascript-part-time.yaml',
-  'react.yaml',
-  'react-part-time.yaml',
-  'c-and-net.yaml',
-  'c-and-net-part-time.yaml',
+  // 'intermediate-javascript.yaml',
+  // 'intermediate-javascript-part-time.yaml',
+  // 'react.yaml',
+  // 'react-part-time.yaml',
+  // 'c-and-net.yaml',
+  // 'c-and-net-part-time.yaml',
   // 'workshops.yaml',
   // 'diversity-equity-and-inclusion.yaml',
   // 'computer-science.yaml',
@@ -63,7 +63,7 @@ const courseFilenames = [
 ];
 
 for (const filename of courseFilenames) {
-  console.log(`\n***\nProcessing course ${filename}...\n***\n`)
+  console.log(`\n*********************************\nProcessing course ${filename}...\n\n`)
   // load course layout data
   const inputPath = join('scripts', 'inputs', filename);
   const courseData = jsYaml.load(fs.readFileSync(inputPath, 'utf8'));
@@ -116,8 +116,6 @@ for (const filename of courseFilenames) {
       const filePath = join(outDir, filename);
       if (await canWriteFile(filePath, newContent)) {
         fs.outputFileSync(filePath, newContent);
-      } else {
-        console.error(`Cannot write to ${filePath}: file exists and content differs`);
       }
     }
 
@@ -139,8 +137,6 @@ for (const filename of courseFilenames) {
     const sectionLayoutOutputPath = join(layoutsOutDir, sectionFilename({ courseSlug, sectionSlug: slug, week }));
     if (await canWriteFile(sectionLayoutOutputPath, sectionLayoutContent)) {
       fs.outputFileSync(sectionLayoutOutputPath, sectionLayoutContent);
-    } else {
-      console.error(`Cannot write to ${sectionLayoutOutputPath}: file exists and content differs`);
     }
   }
 }

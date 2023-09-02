@@ -1,8 +1,6 @@
 docs
 static/images
 scripts/layouts
-scripts/inputs
-scripts/outputs
 
 # Dependencies
 **/node_modules
