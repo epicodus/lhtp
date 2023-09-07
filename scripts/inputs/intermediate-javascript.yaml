@@ -1,0 +1,34 @@
+title: Intermediate JavaScript
+slug: intermediate-javascript
+show_weeks_and_days: true
+sections:
+  - title: Getting Started at Epicodus
+    slug: getting-started-at-epicodus
+    number: 0
+    week: 0
+    path: https://github.com/epicodus-classroom/intro-curriculum/blob/main/0_getting_started_with_epicodus/layout.yaml
+  - title: Setting Up JavaScript
+    slug: setting-up-javascript
+    number: 1
+    week: 0
+    path: https://github.com/epicodus-classroom/js-curriculum/blob/main/0a_getting_started_with_javascript/layout.yaml
+  - title: Object-Oriented JavaScript
+    slug: object-oriented-javascript
+    number: 2
+    week: 1
+    path: https://github.com/epicodus-classroom/js-curriculum/blob/main/1_new_object_oriented_javascript/layout.yaml
+  - title: Test-Driven Development and Environments with JavaScript
+    slug: test-driven-development-and-environments-with-javascript
+    number: 3
+    week: 2
+    path: https://github.com/epicodus-classroom/js-curriculum/blob/main/2_new_test_driven_development/layout.yaml
+  - title: Asynchrony and APIs
+    slug: asynchrony-and-apis
+    number: 4
+    week: 3
+    path: https://github.com/epicodus-classroom/js-curriculum/blob/main/3_new_asynchrony_and_apis/layout.yaml
+  - title: Team Week
+    slug: team-week
+    number: 5
+    week: 4
+    path: https://github.com/epicodus-classroom/shared-curriculum/blob/main/team_week/layout_js_team_week.yaml

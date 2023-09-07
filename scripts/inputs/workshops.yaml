@@ -1,0 +1,14 @@
+title: Workshops
+slug: workshops
+show_weeks_and_days: true
+sections:
+  - title: Intro to Programming Workshop
+    slug: intro-to-programming-workshop
+    number: 0
+    week: 
+    path: https://github.com/epicodus-classroom/intro-workshop/blob/main/layout.yaml
+  - title: Online Accessible Workshop
+    slug: online-accessible-workshop
+    number: 1
+    week: 
+    path: https://github.com/epicodus-classroom/ucode-workshop/blob/main/layout.yaml

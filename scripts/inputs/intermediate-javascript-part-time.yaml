@@ -1,0 +1,54 @@
+title: Intermediate JavaScript (Part-Time)
+slug: intermediate-javascript-part-time
+show_weeks_and_days: true
+sections:
+  - title: Getting Started at Epicodus
+    slug: getting-started-at-epicodus
+    number: 0
+    week: 0
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pre_work/0_getting_started_at_epicodus.yaml
+  - title: Setting Up JavaScript
+    slug: setting-up-javascript
+    number: 1
+    week: 0
+    path: https://github.com/epicodus-classroom/part-time-react/blob/main/js/js-wk1-prework.yaml
+  - title: Object-Oriented JavaScript
+    slug: object-oriented-javascript
+    number: 2
+    week: 1
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/1_js_pt_full_stack/0_new_wk7_pt_full_stack.yaml
+  - title: Object Oriented JavaScript Part 2
+    slug: object-oriented-javascript-part-2
+    number: 3
+    week: 2
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/1_js_pt_full_stack/1_new_wk8_pt_full_stack.yaml
+  - title: Test Driven Development
+    slug: test-driven-development
+    number: 4
+    week: 3
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/1_js_pt_full_stack/2_new_wk9_pt_full_stack.yaml
+  - title: Test Driven Development Part 2
+    slug: test-driven-development-part-2
+    number: 5
+    week: 4
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/1_js_pt_full_stack/3_new_wk10_pt_full_stack.yaml
+  - title: Asynchrony and APIs
+    slug: asynchrony-and-apis
+    number: 6
+    week: 5
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/1_js_pt_full_stack/4_new_wk11_pt_full_stack.yaml
+  - title: Asynchrony and APIs Part 2
+    slug: asynchrony-and-apis-part-2
+    number: 7
+    week: 6
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/1_js_pt_full_stack/5_new_wk12_pt_full_stack.yaml
+  - title: Team Week
+    slug: team-week
+    number: 8
+    week: 7
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/1_js_pt_full_stack/6_wk13_pt_full_stack.yaml
+  - title: Team Week Part 2
+    slug: team-week-part-2
+    number: 9
+    week: 8
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/1_js_pt_full_stack/7_wk14_pt_full_stack.yaml

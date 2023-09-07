@@ -14,7 +14,7 @@ async function fetchCurriculum() {
 
   let docsCoursePaths = [];
   for (const { repo, directory, filename } of course_layouts) {
-    docsCoursePaths.push(path.join(config.local_docs_path, titleToId(repo)));
+    docsCoursePaths.push(path.join(config.local_docs_path, filename.replace('.yaml', '').replaceAll('-', '_')));
     await fetchCourse({
       repo,
       directory,

@@ -1,0 +1,14 @@
+title: Diversity, Equity, and Inclusion
+slug: diversity-equity-and-inclusion
+show_weeks_and_days: true
+sections:
+  - title: DEI Curriculum Overview 
+    slug: dei-curriculum-overview
+    number: 0
+    week: 
+    path: https://github.com/epicodus-classroom/dei-curriculum/blob/main/dei-about-the-curriculum/layout.yaml
+  - title: DEI Lessons
+    slug: dei-lessons
+    number: 1
+    week: 
+    path: https://github.com/epicodus-classroom/dei-curriculum/blob/main/dei-lessons/layout.yaml

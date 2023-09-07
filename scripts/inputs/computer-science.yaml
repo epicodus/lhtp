@@ -1,0 +1,29 @@
+title: Computer Science
+slug: computer-science
+show_weeks_and_days: true
+sections:
+  - title: Big O Notation and Binary Trees
+    slug: big-o-notation-and-binary-trees
+    number: 0
+    week: 1
+    path: https://github.com/epicodus-classroom/computer-science-curriculum/blob/main/week_1_layout.yaml
+  - title: Graph Theory
+    slug: graph-theory
+    number: 1
+    week: 2
+    path: https://github.com/epicodus-classroom/computer-science-curriculum/blob/main/week_2_layout.yaml
+  - title: Bit Manipulation and Hashing
+    slug: bit-manipulation-and-hashing
+    number: 2
+    week: 3
+    path: https://github.com/epicodus-classroom/computer-science-curriculum/blob/main/week_3_layout.yaml
+  - title: Algorithms
+    slug: algorithms
+    number: 3
+    week: 4
+    path: https://github.com/epicodus-classroom/computer-science-curriculum/blob/main/week_4_layout.yaml
+  - title: Additional Data Structures and Key Concepts
+    slug: additional-data-structures-and-key-concepts
+    number: 4
+    week: 5
+    path: https://github.com/epicodus-classroom/computer-science-curriculum/blob/main/week_5_layout.yaml

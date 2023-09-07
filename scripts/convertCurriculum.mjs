@@ -40,13 +40,13 @@ const maintainRepoMappings = {
 }
 
 const courseFilenames = [
-  'prework.yaml',
-  'introduction-to-programming.yaml',
-  'introduction-to-programming-part-time.yaml',
-  // 'intermediate-javascript.yaml',
-  // 'intermediate-javascript-part-time.yaml',
-  // 'react.yaml',
-  // 'react-part-time.yaml',
+  // 'prework.yaml',
+  // 'introduction-to-programming.yaml',
+  // 'introduction-to-programming-part-time.yaml',
+  'intermediate-javascript.yaml',
+  'intermediate-javascript-part-time.yaml',
+  'react.yaml',
+  'react-part-time.yaml',
   // 'c-and-net.yaml',
   // 'c-and-net-part-time.yaml',
   // 'workshops.yaml',
@@ -89,9 +89,10 @@ for (const filename of courseFilenames) {
     // load section layout data
     const { repo, directory, filename } = parseGithubPath(path);
     const sectionRepo = repo;
+    const sectionSlug = slug;
     const sectionDirectory = directory;
     await timeout();
-    const sectionLayoutFile = await fetchLayoutFile({ repo, directory, filename });
+    const sectionLayoutFile = await fetchLayoutFile({ repo, directory, filename, org: 'epicodus-classroom' });
     const data = jsYaml.load(fs.readFileSync(sectionLayoutFile, 'utf8'));
     let lessons = data.flatMap(item => {
       return item[':lessons'].map(lesson => {
@@ -107,11 +108,11 @@ for (const filename of courseFilenames) {
       });
     });
 
-    // download lesson files to seed new repos
+    // // download lesson files to seed new repos
     for (const lesson of lessons) {
       const { repo=sectionRepo, directory=sectionDirectory, filename } = lesson;
       await timeout();
-      const newContent = await fetchFileContent({ repo, directory, filename });
+      const newContent = await fetchFileContent({ repo, directory, filename, org: 'epicodus-classroom' });
       const outDir = maintainRepoMappings[repo] ? join('scripts', 'outputs', maintainRepoMappings[repo]) : courseOutDir;
       const filePath = join(outDir, filename);
       if (await canWriteFile(filePath, newContent)) {
@@ -123,18 +124,20 @@ for (const filename of courseFilenames) {
     const updatedLessons = lessons.map(lesson => ({
       ...lesson,
       repo: maintainRepoMappings[lesson.repo] || undefined,
-      directory: maintainRepoMappings[lesson.repo] ? lesson.directory : undefined,
+      directory: undefined,
     }));
 
     // reformat and save section layout file
     const sectionLayoutContent = jsYaml.dump({
       section: title,
+      // slug: sectionSlug,
+      order: number + 1,
       repo: courseOutRepo,
+      directory: `${number + 1}_${sectionSlug}`,
       lessons: updatedLessons,
-      // order: number,
       // week,
     }, { lineWidth: -1 });
-    const sectionLayoutOutputPath = join(layoutsOutDir, sectionFilename({ courseSlug, sectionSlug: slug, week }));
+    const sectionLayoutOutputPath = join(layoutsOutDir, sectionFilename({ courseSlug, sectionSlug, week }));
     if (await canWriteFile(sectionLayoutOutputPath, sectionLayoutContent)) {
       fs.outputFileSync(sectionLayoutOutputPath, sectionLayoutContent);
     }

@@ -1,0 +1,34 @@
+title: Fidgetech - 4 - React
+slug: fidgetech-4-react
+show_weeks_and_days: false
+sections:
+  - title: 4.0 - Functional Programming with Javascript
+    slug: 4-0-functional-programming-with-javascript
+    number: 0
+    week: 0
+    path: https://github.com/epicodus-classroom/fidgetech-react-new/blob/main/0_functional_programming/layout.yaml
+  - title:  4.1 - React Fundamentals
+    slug: 4-1-react-fundamentals
+    number: 1
+    week: 1
+    path: https://github.com/epicodus-classroom/fidgetech-react-new/blob/main/1_react_fundamentals/layout.yaml
+  - title: 4.2 - React with Redux
+    slug: 4-2-react-with-redux
+    number: 2
+    week: 2
+    path: https://github.com/epicodus-classroom/fidgetech-react-new/blob/main/2_redux/layout.yaml
+  - title: 4.3 - React with NoSQL
+    slug: 4-3-react-with-nosql
+    number: 3
+    week: 3
+    path: https://github.com/epicodus-classroom/fidgetech-react-new/blob/main/3_react_with_nosql/layout.yaml
+  - title: 4.4 - React with APIs
+    slug: 4-4-react-with-apis
+    number: 4
+    week: 4
+    path: https://github.com/epicodus-classroom/fidgetech-react-new/blob/main/4_apis_and_further_exploration/layout.yaml
+  - title: 4.5 - Independent Capstone Projects
+    slug: 4-5-independent-capstone-projects
+    number: 5
+    week: 5
+    path: https://github.com/epicodus-classroom/fidgetech-react-new/blob/main/5_independent_capstone_projects/layout.yaml

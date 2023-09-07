@@ -1,0 +1,19 @@
+title: Introduction to Programming
+slug: introduction-to-programming
+show_weeks_and_days: true
+sections:
+  - title: Git, HTML and CSS
+    slug: git-html-and-css
+    number: 0
+    week: 1
+    path: https://github.com/epicodus-classroom/intro-curriculum/blob/main/1_git_html_and_css/layout_remote_full_time.yaml
+  - title: JavaScript and Web Browsers
+    slug: javascript-and-web-browsers
+    number: 1
+    week: 2
+    path: https://github.com/epicodus-classroom/intro-curriculum/blob/main/2_javascript_and_web_browsers/layout.yaml
+  - title: Arrays and Looping
+    slug: arrays-and-looping
+    number: 2
+    week: 3
+    path: https://github.com/epicodus-classroom/intro-curriculum/blob/main/3_new_arrays_and_looping/layout.yaml

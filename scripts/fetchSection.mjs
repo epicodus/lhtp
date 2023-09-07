@@ -60,13 +60,12 @@ const nextNumber = (dayCount, day) => {
 }
 
 async function fetchLessons({ lessons, outDir }) {
-  const groupedLessons = Object.values(lodash.groupBy(lessons, lesson => `${lesson.repo}:${lesson.directory}`));
+  const groupedLessons = Object.values(lodash.groupBy(lessons, lesson => lesson.repo));
   for (const lessonGroup of groupedLessons) {
-    const { repo, directory } = lessonGroup[0];
+    const { repo } = lessonGroup[0];
     const documents = lessonGroup.map(({filename, frontMatter}) => ({ filename, frontMatter }));
     await fetchDocusaurusDocs({
       repo,
-      directory,
       documents,
       outDir
     });

@@ -1,0 +1,64 @@
+title: C# and .NET
+slug: c-and-net
+show_weeks_and_days: true
+sections:
+  - title: Getting Started at Epicodus
+    slug: getting-started-at-epicodus
+    number: 0
+    week: 0
+    path: https://github.com/epicodus-classroom/intro-curriculum/blob/main/0_getting_started_with_epicodus/layout.yaml
+  - title: Getting Started with C#
+    slug: getting-started-with-c
+    number: 1
+    week: 0
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/0a_getting_started_with_c/layout.yaml
+  - title: Data Types, Variables, Branching, and Looping
+    slug: data-types-variables-branching-and-looping
+    number: 2
+    week: 0
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/0b_data_types_variables_branching_looping/layout.yaml
+  - title: Basic Console Apps
+    slug: basic-console-apps
+    number: 3
+    week: 0
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/0c_basic_console_apps/layout.yaml
+  - title: TDD and Debugging
+    slug: tdd-and-debugging
+    number: 4
+    week: 0
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/0d_tdd_with_mstest_and_debugging/layout.yaml
+  - title: Test-Driven Development With C#
+    slug: test-driven-development-with-c
+    number: 5
+    week: 1
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/1_test_driven_development_with_c/layout.yaml
+  - title: Basic Web Applications
+    slug: basic-web-applications
+    number: 6
+    week: 2
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/2_basic_web_apps/layout.yaml
+  - title: Database Basics
+    slug: database-basics
+    number: 7
+    week: 3
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/3_database_basics/layout.yaml
+  - title: Many-To-Many Relationships
+    slug: many-to-many-relationships
+    number: 8
+    week: 4
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/4_many_to_many_relationships/layout.yaml
+  - title: Authentication with Identity
+    slug: authentication-with-identity
+    number: 9
+    week: 5
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/5_authentication_with_identity/layout.yaml
+  - title: Building an API
+    slug: building-an-api
+    number: 10
+    week: 6
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/6_apis/layout.yaml
+  - title: Team Week
+    slug: team-week
+    number: 11
+    week: 7
+    path: https://github.com/epicodus-classroom/shared-curriculum/blob/main/team_week/layout_level2_team_week.yaml

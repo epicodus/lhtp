@@ -1,0 +1,99 @@
+title: C# and .NET (Part-Time)
+slug: c-and-net-part-time
+show_weeks_and_days: true
+sections:
+  - title: Getting Started at Epicodus
+    slug: getting-started-at-epicodus
+    number: 0
+    week: 0
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pre_work/0_getting_started_at_epicodus.yaml
+  - title: Getting Started with C#
+    slug: getting-started-with-c
+    number: 1
+    week: 0
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/0a_getting_started_with_c/layout.yaml
+  - title: Data Types, Variables, Branching, and Looping
+    slug: data-types-variables-branching-and-looping
+    number: 2
+    week: 0
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/0b_data_types_variables_branching_looping/layout.yaml
+  - title: Basic Console Apps
+    slug: basic-console-apps
+    number: 3
+    week: 0
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/0c_basic_console_apps/layout.yaml
+  - title: TDD and Debugging
+    slug: tdd-and-debugging
+    number: 4
+    week: 0
+    path: https://github.com/epicodus-classroom/c-sharp-curriculum/blob/main/0d_tdd_with_mstest_and_debugging/layout.yaml
+  - title: Test-Driven Development with C#
+    slug: test-driven-development-with-c
+    number: 5
+    week: 1
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/0_wk15_csharp_pt_full_stack.yaml
+  - title: Test-Driven Development with C# Part 2
+    slug: test-driven-development-with-c-part-2
+    number: 6
+    week: 2
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/1_wk16_csharp_pt_full_stack.yaml
+  - title: Basic Web Applications
+    slug: basic-web-applications
+    number: 7
+    week: 3
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/2_wk17_csharp_pt_full_stack.yaml
+  - title: Basic Web Applications Part 2
+    slug: basic-web-applications-part-2
+    number: 8
+    week: 4
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/3_wk18_csharp_pt_full_stack.yaml
+  - title: Database Basics
+    slug: database-basics
+    number: 9
+    week: 5
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/4_wk19_csharp_pt_full_stack.yaml
+  - title: Database Basics Part 2
+    slug: database-basics-part-2
+    number: 10
+    week: 6
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/5_wk20_csharp_pt_full_stack.yaml
+  - title: Many-to-Many Relationships
+    slug: many-to-many-relationships
+    number: 11
+    week: 7
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/6_wk21_csharp_pt_full_stack.yaml
+  - title: Many-to-Many Relationships Part 2
+    slug: many-to-many-relationships-part-2
+    number: 12
+    week: 8
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/7_wk22_csharp_pt_full_stack.yaml
+  - title: Authentication with Identity
+    slug: authentication-with-identity
+    number: 13
+    week: 9
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/8_wk23_csharp_pt_full_stack.yaml
+  - title: Authentication with Identity Part 2
+    slug: authentication-with-identity-part-2
+    number: 14
+    week: 10
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/9_wk24_csharp_pt_full_stack.yaml
+  - title: Building an API
+    slug: building-an-api
+    number: 15
+    week: 11
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/10_wk25_csharp_pt_full_stack.yaml
+  - title: Building an API Part 2
+    slug: building-an-api-part-2
+    number: 16
+    week: 12
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/11_wk26_csharp_pt_full_stack.yaml
+  - title: Team Week
+    slug: team-week
+    number: 17
+    week: 13
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/12_wk27_csharp_pt_full_stack.yaml
+  - title: Team Week Part 2
+    slug: team-week-part-2
+    number: 18
+    week: 14
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/2_csharp_pt_full_stack/13_wk28_csharp_pt_full_stack.yaml

@@ -13,12 +13,13 @@ import config from "./config.mjs";
 
 const INSTALLATION_ACCESS_TOKEN = process.env.INSTALLATION_TOKEN || await getInstallationAccessToken();
 
-export async function fetchLayoutFile({ repo, directory, filename }) {
+export async function fetchLayoutFile({ repo, directory, filename, org=config.org }) {
   await fetchFile({
     repo,
     directory,
     filename,
     outDir: config.scratch_directory_path,
+    org
   });
   return path.join(config.scratch_directory_path, filename);
 }
@@ -56,9 +57,9 @@ export async function fetchImages({ repo }) {
   }
 }
 
-async function fetchGithubContent({ repo, directory='', documents }) {
+async function fetchGithubContent({ repo, directory='', documents, org=config.org }) {
   const client = axios.create({
-    baseURL: `https://api.github.com/repos/${config.org}/${repo}/contents/${directory}`,
+    baseURL: `https://api.github.com/repos/${org}/${repo}/contents/${directory}`,
     headers: {
       Accept: "application/vnd.github.raw+json",
       Authorization: `Bearer ${INSTALLATION_ACCESS_TOKEN}`,
@@ -67,19 +68,18 @@ async function fetchGithubContent({ repo, directory='', documents }) {
   // console.log(`\nRetrieving ${documents.length} file(s) from ${repo}/${directory}`);
   let fetchedDocuments = [];
   for (const doc of documents) {
-    // console.log('fetching', doc.filename);
     const response = await client.get(doc.filename);
     fetchedDocuments.push({ ...doc, content: response.data });
   }
   return fetchedDocuments;
 }
 
-export async function fetchFileContent({ repo, directory='', filename }) {
-  const [{ content }] = await fetchGithubContent({ repo, directory, documents: [{ filename }] });
+export async function fetchFileContent({ repo, directory='', filename, org=config.org }) {
+  const [{ content }] = await fetchGithubContent({ repo, directory, documents: [{ filename }], org });
   return content;
 }
 
-export async function fetchFile({ repo, directory='', outDir, filename }) {
-  const content = await fetchFileContent({ repo, directory, filename });
+export async function fetchFile({ repo, directory='', outDir, filename, org=config.org }) {
+  const content = await fetchFileContent({ repo, directory, filename, org });
   fs.writeFileSync(path.join(outDir, filename), content);
 }

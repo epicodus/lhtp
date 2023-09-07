@@ -1,0 +1,39 @@
+title: React
+slug: react
+show_weeks_and_days: true
+sections:
+  - title: Getting Started at Epicodus
+    slug: getting-started-at-epicodus
+    number: 0
+    week: 0
+    path: https://github.com/epicodus-classroom/intro-curriculum/blob/main/0_getting_started_with_epicodus/layout.yaml
+  - title: Functional Programming with JavaScript
+    slug: functional-programming-with-javascript
+    number: 1
+    week: 1
+    path: https://github.com/epicodus-classroom/react-curriculum/blob/main/0_functional_programming/layout.yaml
+  - title: React Fundamentals
+    slug: react-fundamentals
+    number: 2
+    week: 2
+    path: https://github.com/epicodus-classroom/react-curriculum/blob/main/1_react_fundamentals/layout.yaml
+  - title: React with Redux
+    slug: react-with-redux
+    number: 3
+    week: 3
+    path: https://github.com/epicodus-classroom/react-curriculum/blob/main/2_redux/layout.yaml
+  - title: React with NoSQL
+    slug: react-with-nosql
+    number: 4
+    week: 4
+    path: https://github.com/epicodus-classroom/react-curriculum/blob/main/3_new_react_with_nosql/layout.yaml
+  - title: React with APIs
+    slug: react-with-apis
+    number: 5
+    week: 5
+    path: https://github.com/epicodus-classroom/react-curriculum/blob/main/4_new_apis_and_further_exploration/layout.yaml
+  - title: Independent Capstone
+    slug: independent-capstone
+    number: 6
+    week: 6
+    path: https://github.com/epicodus-classroom/react-curriculum/blob/main/5_independent_capstone_projects/layout.yaml

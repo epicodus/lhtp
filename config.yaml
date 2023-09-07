@@ -11,8 +11,7 @@
 fetch_images: false
 
 curriculum_layout:
-  repo: shared-curriculum
-  directory: lhtp2
+  repo: lhtp2
   filename: curriculum-layout.yaml
 
 # The defaults are likely fine for everything below this line

@@ -1,0 +1,34 @@
+title: Introduction to Programming (Part-Time)
+slug: introduction-to-programming-part-time
+show_weeks_and_days: true
+sections:
+  - title: Git, HTML, and CSS
+    slug: git-html-and-css
+    number: 0
+    week: 1
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/0_intro_pt_full_stack/0_remote_wk1_pt_full_stack.yaml
+  - title: Git, HTML, and CSS Part 2
+    slug: git-html-and-css-part-2
+    number: 1
+    week: 2
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/0_intro_pt_full_stack/1_remote_wk2_pt_full_stack.yaml
+  - title: JavaScript and Web Browsers
+    slug: javascript-and-web-browsers
+    number: 2
+    week: 3
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/0_intro_pt_full_stack/2_new_wk3_section_2.yaml
+  - title: JavaScript and Web Browsers Part 2
+    slug: javascript-and-web-browsers-part-2
+    number: 3
+    week: 4
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/0_intro_pt_full_stack/3_new_wk4_section_2.yaml
+  - title: Arrays and Looping
+    slug: arrays-and-looping
+    number: 4
+    week: 5
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/0_intro_pt_full_stack/4_new_wk5_pt_full_stack.yaml
+  - title: Arrays and Looping Part 2
+    slug: arrays-and-looping-part-2
+    number: 5
+    week: 6
+    path: https://github.com/epicodus-classroom/part-time-curriculum/blob/main/pt_full_stack/0_intro_pt_full_stack/5_new_wk6_pt_full_stack.yaml

@@ -1,0 +1,19 @@
+title: Internship and Job Search
+slug: internship-and-job-search
+show_weeks_and_days: true
+sections:
+  - title: Internship Process
+    slug: internship-process
+    number: 0
+    week: 
+    path: https://github.com/epicodus-classroom/soft-skills-and-job-prep-curriculum/blob/main/internship-and-job-search/internship-process/internship_process_layout.yaml
+  - title: Applying for Internships and Jobs
+    slug: applying-for-internships-and-jobs
+    number: 1
+    week: 
+    path: https://github.com/epicodus-classroom/soft-skills-and-job-prep-curriculum/blob/main/internship-and-job-search/preparing-to-apply-for-jobs/preparing_to_apply_for_jobs_layout.yaml
+  - title: Preparing for Job Interviews
+    slug: preparing-for-job-interviews
+    number: 2
+    week: 
+    path: https://github.com/epicodus-classroom/soft-skills-and-job-prep-curriculum/blob/main/internship-and-job-search/preparing-for-job-interviews/preparing_for_interviews_layout.yaml

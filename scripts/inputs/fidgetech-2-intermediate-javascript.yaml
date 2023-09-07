@@ -1,0 +1,29 @@
+title: Fidgetech - 2 - Intermediate JavaScript
+slug: fidgetech-2-intermediate-javascript
+show_weeks_and_days: false
+sections:
+  - title: 2.0 - Getting Started with JavaScript
+    slug: 2-0-getting-started-with-javascript
+    number: 0
+    week: 0
+    path: https://github.com/epicodus-classroom/fidgetech-javascript/blob/main/0a_getting_started_with_javascript/layout.yaml
+  - title: 2.1 - Object-Oriented JavaScript
+    slug: 2-1-object-oriented-javascript
+    number: 1
+    week: 1
+    path: https://github.com/epicodus-classroom/fidgetech-javascript/blob/main/1_new_object_oriented_javascript/layout.yaml
+  - title: 2.2 - Test-Driven Development and Environments with JavaScript
+    slug: 2-2-test-driven-development-and-environments-with-javascript
+    number: 2
+    week: 2
+    path: https://github.com/epicodus-classroom/fidgetech-javascript/blob/main/1_test_driven_development/layout.yaml
+  - title: 2.3 - Asynchrony and APIs
+    slug: 2-3-asynchrony-and-apis
+    number: 3
+    week: 3
+    path: https://github.com/epicodus-classroom/fidgetech-javascript/blob/main/2_asynchrony_and_apis/layout.yaml
+  - title: 2.4 - Team Week
+    slug: 2-4-team-week
+    number: 4
+    week: 4
+    path: https://github.com/epicodus-classroom/fidgetech-javascript/blob/main/5_Team_Week/layout.yaml

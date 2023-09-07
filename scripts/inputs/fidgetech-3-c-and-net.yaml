@@ -1,0 +1,64 @@
+title: Fidgetech - 3 - C# and .NET
+slug: fidgetech-3-c-and-net
+show_weeks_and_days: false
+sections:
+  - title: 3.0 (Lessons 1-5) - Getting Started with C#
+    slug: 3-0-lessons-1-5-getting-started-with-c
+    number: 0
+    week: 0
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/0a_getting_started_with_c/layout.yaml
+  - title: 3.0 (Lessons 6-10) - Data Types and Variables
+    slug: 3-0-lessons-6-10-data-types-and-variables
+    number: 1
+    week: 0
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/0b_data_types_and_variables/layout.yaml
+  - title: 3.0 (Lessons 11-15) - Basic Console Apps
+    slug: 3-0-lessons-11-15-basic-console-apps
+    number: 2
+    week: 0
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/0c_basic_console_apps/layout.yaml
+  - title: 3.0 (Lessons 16-24) - Branching and Looping
+    slug: 3-0-lessons-16-24-branching-and-looping
+    number: 3
+    week: 0
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/0d_branching_and_looping/layout.yaml
+  - title: 3.0 (Lessons 25-34) - Objects and Methods
+    slug: 3-0-lessons-25-34-objects-and-methods
+    number: 4
+    week: 0
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/0e_objects_and_methods/layout.yaml
+  - title: 3.1 - Test-Driven Development with C#
+    slug: 3-1-test-driven-development-with-c
+    number: 5
+    week: 1
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/1_test_driven_development_with_c/layout.yaml
+  - title: 3.2 - Basic Web Applications
+    slug: 3-2-basic-web-applications
+    number: 6
+    week: 2
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/2_basic_web_apps/layout.yaml
+  - title: 3.3 - Database Basics
+    slug: 3-3-database-basics
+    number: 7
+    week: 3
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/3_database_basics/layout.yaml
+  - title: 3.4 - Many-To-Many Relationships
+    slug: 3-4-many-to-many-relationships
+    number: 8
+    week: 4
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/4_many_to_many_relationships/layout.yaml
+  - title: 3.5 - Authentication with Identity
+    slug: 3-5-authentication-with-identity
+    number: 9
+    week: 5
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/5_authentication_with_identity/layout.yaml
+  - title: 3.6 - Building an API
+    slug: 3-6-building-an-api
+    number: 10
+    week: 6
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/6_apis/layout.yaml
+  - title: 3.7 - Team Project
+    slug: 3-7-team-project
+    number: 11
+    week: 7
+    path: https://github.com/epicodus-classroom/fidgetech-csharp-dotnet-5/blob/main/7_Team_Week/layout.yaml
