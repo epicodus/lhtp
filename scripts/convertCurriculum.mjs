@@ -78,7 +78,7 @@ for (const filename of courseFilenames) {
   const courseLayoutContent = jsYaml.dump({
     title: courseTitle,
     show_weeks_and_days: courseShowWeeksAndDays,
-    homepage: 'homepage.md',
+    homepage: 'index.md',
     sections: sections.map(section => sectionFilename({ courseSlug, sectionSlug: section.slug, week: section.week })),
   }, { lineWidth: -1 });
   const courseLayoutOutputPath = join(layoutsOutDir, courseSlug + '.yaml');

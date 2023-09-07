@@ -39,11 +39,10 @@ export function generateSectionSidebar({ title, number, lessons, show_weeks_and_
 export function generateCourseSidebar({ title, sectionDirectories, docsCoursePath }) {
   const sidebarPath = path.join(docsCoursePath, 'sidebar.js');
   const [courseId] = docsCoursePath.split('/').slice(-1);
-  const titleId = titleToId(title);
   const requires = sectionDirectories.map(sectionDirectory => `require('${path.join(docsCoursePath, sectionDirectory, 'sidebar.js')}')`);
 
   const fileContent = `module.exports = [
-  '${path.join(courseId, titleId)}',
+  '${path.join(courseId, 'index')}',
   ${requires.join(',\n  ')}
 ];\n`;
 
