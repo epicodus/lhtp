@@ -75,8 +75,8 @@ export function parseGithubPath(path) {
     return { repo, directory, filename };
 }
 
-export function timeout() {
-  return new Promise(resolve => setTimeout(resolve, 50));
+export function timeout(ms=50) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export async function canWriteFile(path, newContent) {

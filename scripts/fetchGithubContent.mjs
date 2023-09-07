@@ -6,7 +6,7 @@ import fs from "fs-extra";
 import path from "path";
 import axios from "axios";
 import "dotenv/config";
-import { reactifyStyles } from "./utils.mjs";
+import { reactifyStyles, timeout } from "./utils.mjs";
 import { getInstallationAccessToken } from "./getInstallationToken.mjs";
 import { execSync } from 'child_process';
 import config from "./config.mjs";
@@ -34,6 +34,7 @@ export function fetchStaticPage({ repo, directory, filename }) {
 }
 
 export async function fetchDocusaurusDocs({ repo, directory='', outDir, documents }) {
+  console.log(`\nFetching ${documents.length} file(s) from ${repo}/${directory}`);
   const fetchedDocuments = await fetchGithubContent({ repo, directory, documents });
   console.log(`\nPreparing ${fetchedDocuments.length} file(s) for Docusaurus in ${outDir}`);
   for (const { filename, content, frontMatter } of fetchedDocuments) {
@@ -68,6 +69,7 @@ async function fetchGithubContent({ repo, directory='', documents, org=config.or
   // console.log(`\nRetrieving ${documents.length} file(s) from ${repo}/${directory}`);
   let fetchedDocuments = [];
   for (const doc of documents) {
+    await timeout(1000);
     const response = await client.get(doc.filename);
     fetchedDocuments.push({ ...doc, content: response.data });
   }
