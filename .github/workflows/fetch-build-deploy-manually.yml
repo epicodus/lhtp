@@ -38,6 +38,8 @@ jobs:
           # PRIVATE_KEY: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
 
       - name: Build site
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: npm run build
 
       - name: Deploy to GitHub Pages
