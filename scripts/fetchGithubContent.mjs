@@ -33,29 +33,14 @@ export function fetchStaticPage({ repo, directory, filename }) {
   });
 }
 
-export async function fetchDocusaurusDocs({ repo, directory='', outDir, documents }) {
-  console.log(`\nFetching ${documents.length} file(s) from ${repo}/${directory}`);
-  const fetchedDocuments = await fetchGithubContent({ repo, directory, documents });
-  console.log(`\nPreparing ${fetchedDocuments.length} file(s) for Docusaurus in ${outDir}`);
-  for (const { filename, content, frontMatter } of fetchedDocuments) {
-    const mdx = frontMatter + reactifyStyles(content);
-    fs.writeFileSync(path.join(outDir, filename), mdx);
-  }
-}
-
-export async function fetchImages({ repo }) {
-  const repoUrl = `https://github.com/${config.org}/${repo}`;
-  const tempImagesPath = path.join(config.scratch_directory_path, 'temp_images');
-  const imagesPath = path.join(config.local_images_path, repo);
-  try {
-    execSync(`git clone ${repoUrl} ${tempImagesPath}`);
-    await fs.ensureDir(imagesPath)
-    await fs.copy(path.join(tempImagesPath, config.repo_images_path), imagesPath);
-    await fs.remove(tempImagesPath);
-    console.log('Images copied successfully.');
-  } catch (error) {
-    console.error('Error copying images:', error);
-  }
+export async function fetchDocusaurusDocs({ repo, directory='', lessons }) {
+  console.log(`\nFetching ${lessons.length} file(s) from ${repo}/${directory}`);
+  const fetchedDocuments = await fetchGithubContent({ repo, directory, documents: lessons });
+  const reactifiedDocuments = fetchedDocuments.map(lesson => ({
+    ...lesson,
+    content: reactifyStyles(lesson.content)
+  }));
+  return reactifiedDocuments;
 }
 
 async function fetchGithubContent({ repo, directory='', documents, org=config.org }) {
@@ -84,4 +69,20 @@ export async function fetchFileContent({ repo, directory='', filename, org=confi
 export async function fetchFile({ repo, directory='', outDir, filename, org=config.org }) {
   const content = await fetchFileContent({ repo, directory, filename, org });
   fs.writeFileSync(path.join(outDir, filename), content);
+}
+
+// remove this?
+export async function fetchImages({ repo }) {
+  const repoUrl = `https://github.com/${config.org}/${repo}`;
+  const tempImagesPath = path.join(config.scratch_directory_path, 'temp_images');
+  const imagesPath = path.join(config.local_images_path, repo);
+  try {
+    execSync(`git clone ${repoUrl} ${tempImagesPath}`);
+    await fs.ensureDir(imagesPath)
+    await fs.copy(path.join(tempImagesPath, config.repo_images_path), imagesPath);
+    await fs.remove(tempImagesPath);
+    console.log('Images copied successfully.');
+  } catch (error) {
+    console.error('Error copying images:', error);
+  }
 }

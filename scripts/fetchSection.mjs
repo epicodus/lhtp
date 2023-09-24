@@ -15,40 +15,60 @@ export async function fetchSection({ sectionLayout, docsCoursePath, show_weeks_a
   const updatedLessons = addLessonMetadata({
     lessons,
     repo,
-    directory,
+    directory
+  });
+
+  const fetchedLessons = await fetchLessons({
+    lessons: updatedLessons
+  });
+
+  const deduplicatedLessons = renameDuplicateLessons({
+    lessons: fetchedLessons
+  });
+
+  const lessonsWithFrontMatter = addLessonFrontMatter({
+    lessons: deduplicatedLessons,
     show_weeks_and_days
   });
 
-  fetchLessons({
-    lessons: updatedLessons,
-    outDir
-  });
-  
+  // save lessons
+  for (const { filename, content, frontMatter } of lessonsWithFrontMatter) {
+    const mdx = frontMatter + content;
+    const filepath = path.join(outDir, filename);
+    fs.writeFileSync(filepath, mdx);
+  }
+
   generateSectionSidebar({
     title: section,
     number: order,
-    lessons: updatedLessons,
+    lessons: lessonsWithFrontMatter,
     show_weeks_and_days,
     repo,
     outDir
   });
 }
 
-const addLessonMetadata = ({ lessons, repo, directory, show_weeks_and_days }) => {
-  const dayCount = { "weekend": 0, "monday": 0, "tuesday": 0, "wednesday": 0, "thursday": 0, "friday": 0 };
+const addLessonMetadata = ({ lessons, repo, directory }) => {
   return lessons.map((lesson, i) => ({
     ...lesson,
     repo: lesson.repo || repo,
     directory: lesson.directory || directory,
     number: i,
     isFirst: i === 0,
-    isLast: i === lessons.length - 1,
+    isLast: i === lessons.length - 1
+  }));
+}
+
+const addLessonFrontMatter = ({ lessons, show_weeks_and_days }) => {
+  const dayCount = { "weekend": 0, "monday": 0, "tuesday": 0, "wednesday": 0, "thursday": 0, "friday": 0 };
+  return lessons.map(lesson => ({
+    ...lesson,
     frontMatter: generateFrontMatter({
       ...lesson,
-      repo: lesson.repo || repo,
-      directory: lesson.directory || directory,
+      repo: lesson.repo,
+      directory: lesson.directory,
+      number: lesson.number,
       show_weeks_and_days,
-      number: i,
       numberDay: nextNumber(dayCount, lesson.day)
     })
   }));
@@ -59,15 +79,28 @@ const nextNumber = (dayCount, day) => {
   return dayCount[day];
 }
 
-async function fetchLessons({ lessons, outDir }) {
+async function fetchLessons({ lessons }) {
+  const fetchedLessons = [];
   const groupedLessons = Object.values(lodash.groupBy(lessons, lesson => lesson.repo));
   for (const lessonGroup of groupedLessons) {
     const { repo } = lessonGroup[0];
-    const documents = lessonGroup.map(({filename, frontMatter}) => ({ filename, frontMatter }));
-    await fetchDocusaurusDocs({
-      repo,
-      documents,
-      outDir
-    });
+    const batch = await fetchDocusaurusDocs({ repo, lessons: lessonGroup });
+    fetchedLessons.push(...batch);
   }
+  return fetchedLessons;
+}
+
+function renameDuplicateLessons({ lessons }) {
+  const filenameCount = {};
+  return lessons.map(({ filename, title, ...lesson }) => {
+    const [name, ext] = filename.split('.');
+    filenameCount[name] = (filenameCount[name] || 0) + 1;
+    const newFilename = filenameCount[name] > 1 ? `${name}_day_${filenameCount[name]}.${ext}` : filename;
+    const newTitle = filenameCount[name] > 1 ? `${title} (day ${filenameCount[name]})` : title;
+    return {
+      filename: newFilename,
+      title: newTitle,
+      ...lesson
+    };
+  });
 }

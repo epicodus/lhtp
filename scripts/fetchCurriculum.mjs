@@ -5,7 +5,6 @@ import { clearDirectories, readYamlFile } from "./utils.mjs";
 import { fetchCourse } from "./fetchCourse.mjs";
 import { fetchLayoutFile, fetchStaticPage } from "./fetchGithubContent.mjs";
 import { generateTopLevelSidebar } from "./generateSidebar.mjs";
-import { titleToId } from "./utils.mjs";
 import config from "./config.mjs";
 
 async function fetchCurriculum() {
