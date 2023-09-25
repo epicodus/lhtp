@@ -15,7 +15,8 @@ export function generateFrontMatter(lesson) {
     sidebar_position: number + 1,
     day,
     type,
-    url: `https://github.com/${config.org}/${repo}/blob/main/${directory}/${filename}`
+    url: `https://github.com/${config.org}/${repo}/blob/main/${filename}`
+    // url: `https://github.com/${config.org}/${repo}/blob/main/${directory}/${filename}`
   }
   if (isFirst) frontMatter.paginationPrev = null;
   if (isLast) frontMatter.paginationNext = null;

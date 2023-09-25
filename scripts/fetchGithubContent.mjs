@@ -11,6 +11,8 @@ import { getInstallationAccessToken } from "./getInstallationToken.mjs";
 import { execSync } from 'child_process';
 import config from "./config.mjs";
 
+let githubContentCache = {};
+
 const INSTALLATION_ACCESS_TOKEN = process.env.INSTALLATION_TOKEN || await getInstallationAccessToken();
 
 export async function fetchLayoutFile({ repo, directory, filename, org=config.org }) {
@@ -54,9 +56,13 @@ async function fetchGithubContent({ repo, directory='', documents, org=config.or
   // console.log(`\nRetrieving ${documents.length} file(s) from ${repo}/${directory}`);
   let fetchedDocuments = [];
   for (const doc of documents) {
-    await timeout(1000);
-    const response = await client.get(doc.filename);
-    fetchedDocuments.push({ ...doc, content: response.data });
+    const cacheKey = `${org}:${repo}:${directory}:${doc.filename}`;
+    if (!githubContentCache[cacheKey]) {
+      await timeout(1000);
+      const response = await client.get(doc.filename);
+      githubContentCache[cacheKey] = response.data;
+    }
+    fetchedDocuments.push({ ...doc, content: githubContentCache[cacheKey] });
   }
   return fetchedDocuments;
 }
