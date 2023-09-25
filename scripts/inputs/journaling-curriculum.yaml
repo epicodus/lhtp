@@ -1,14 +1,14 @@
 title: Journaling Curriculum
 slug: journaling-curriculum
-show_weeks_and_days: true
+show_weeks_and_days: false
 sections:
   - title: Introduction to Journaling at Epicodus
     slug: introduction-to-journaling-at-epicodus
     number: 0
-    week: 
+    week: 0
     path: https://github.com/epicodus-classroom/soft-skills-and-job-prep-curriculum/blob/main/journal-prompts/intro-to-journaling-layout.yaml
   - title: Journal Prompts
     slug: journal-prompts
     number: 1
-    week: 
+    week: 1
     path: https://github.com/epicodus-classroom/soft-skills-and-job-prep-curriculum/blob/main/journal-prompts/journal-prompts-layout.yaml
