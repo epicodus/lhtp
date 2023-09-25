@@ -60,7 +60,7 @@ const addLessonMetadata = ({ lessons, repo, directory }) => {
 }
 
 const addLessonFrontMatter = ({ lessons, show_weeks_and_days }) => {
-  const dayCount = { "weekend": 0, "monday": 0, "tuesday": 0, "wednesday": 0, "thursday": 0, "friday": 0 };
+  const dayCount = { "weekend": 0, "sunday": 0, "monday": 0, "tuesday": 0, "wednesday": 0, "thursday": 0, "friday": 0 };
   return lessons.map(lesson => ({
     ...lesson,
     frontMatter: generateFrontMatter({

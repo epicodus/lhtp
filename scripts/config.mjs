@@ -7,6 +7,8 @@ export async function loadConfig() {
   const config = await readYamlFile(path.join(root_path, 'config.yaml'));
 
   const fetch_images = config.fetch_images;
+  const show_lesson_numbers = config.show_lesson_numbers;
+  const show_week_numbers = config.show_week_numbers;
   const local_docs_path = path.join(root_path, config.docusaurus_docs_dir);
   const local_static_assets_path = path.join(root_path, config.docusaurus_static_assets_dir);
   const scratch_directory_path = path.join(root_path, config.scratch_dir);
@@ -18,6 +20,8 @@ export async function loadConfig() {
 
   return {
     fetch_images,
+    show_lesson_numbers,
+    show_week_numbers,
     root_path,
     org,
     local_docs_path,

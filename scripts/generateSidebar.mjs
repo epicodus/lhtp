@@ -20,7 +20,7 @@ export function generateSectionSidebar({ title, number, lessons, show_weeks_and_
       label: lessonGroup[0].day.toUpperCase(),
       items: lessonGroup.map(lesson => `${path.join(courseId, sectionId, matter(lesson.frontMatter).data.id)}`)
     }));
-    label = `[wk${number}] ${title}`;
+    label = config.show_week_numbers ? `[wk${number}] ${title}` : title;
     items = days;
   } else {
     label = `${title}`;

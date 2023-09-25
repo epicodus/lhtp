@@ -9,6 +9,8 @@
 #####################################################################
 
 fetch_images: false
+show_lesson_numbers: false
+show_week_numbers: false
 
 curriculum_layout:
   repo: lhtp2
