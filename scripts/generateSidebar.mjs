@@ -51,7 +51,7 @@ export function generateCourseSidebar({ title, sectionDirectories, docsCoursePat
 
 export function generateTopLevelSidebar({ docsCoursePaths }) {
   const sidebarPath = path.join(config.root_path, 'sidebars.js');
-  const requires = docsCoursePaths.map(coursePath => `${titleToId(coursePath.split('/').slice(-1)[0])}: require('${path.join(coursePath, 'sidebar.js')}')`);
+  const requires = docsCoursePaths.map(coursePath => `'${titleToId(coursePath.split('/').slice(-1)[0])}': require('${path.join(coursePath, 'sidebar.js')}')`);
 
   const fileContent = `module.exports = {
   ${requires.join(',\n  ')}

@@ -3,7 +3,7 @@ import { titleToId } from './utils.mjs';
 import config from './config.mjs';
 
 export function generateFrontMatter(lesson) {
-  const { title, number, day, numberDay, type, isFirst, isLast, show_weeks_and_days, repo, directory, filename } = lesson;
+  const { title, number, day, numberDay, type, isFirst, isLast, show_weeks_and_days, repo, filename } = lesson;
   const id = titleToId(title);
   const titleWithNumber = show_weeks_and_days ? `${numberDay}. ${title}` : `${number + 1}. ${title}`;
 

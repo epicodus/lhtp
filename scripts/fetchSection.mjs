@@ -34,7 +34,7 @@ export async function fetchSection({ sectionLayout, docsCoursePath, show_weeks_a
   // save lessons
   for (const { filename, content, frontMatter } of lessonsWithFrontMatter) {
     const mdx = frontMatter + content;
-    const filepath = path.join(outDir, filename);
+    const filepath = path.join(outDir, filename.replaceAll('_', '-'));
     fs.writeFileSync(filepath, mdx);
   }
 
@@ -65,9 +65,6 @@ const addLessonFrontMatter = ({ lessons, show_weeks_and_days }) => {
     ...lesson,
     frontMatter: generateFrontMatter({
       ...lesson,
-      repo: lesson.repo,
-      directory: lesson.directory,
-      number: lesson.number,
       show_weeks_and_days,
       numberDay: nextNumber(dayCount, lesson.day)
     })
