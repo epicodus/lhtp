@@ -42,7 +42,7 @@ const config = {
   },
   scripts: [
     {
-      src: '/lhtp/usersnap-loader.js',
+      src: '/usersnap-loader.js',
       defer: true,
     },
   ],
