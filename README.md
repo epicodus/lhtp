@@ -2,14 +2,6 @@
 
 This is a rewrite of LHTP using Docusaurus 2, a React-based static site generator.
 
-# Breaking changes - 2023-05-03
-
-I moved everything into the main npm module, so you no longer need to run the fetch scripts from a submodule. You can now just use `npm run fetch` from the main project directory to fetch docs and images.
-
-I've also changed the environment variables to be compatible with the deployment Github actions workflow. Note the changed names and the fact that PRIVATE_KEY is now the key itself, not the path to the file.
-
-Other config variables are moved to config.yaml in the project root directory..
-
 ## Pulling course docs and images from GitHub
 
 The scripts to pull content from private GitHub repos are written to work with a GitHub App.
