@@ -3,7 +3,7 @@ import { titleToId } from './utils.mjs';
 import config from './config.mjs';
 
 export function generateFrontMatter(lesson) {
-  const { title, number, day, numberDay, type, isFirst, isLast, show_weeks_and_days, repo, filename } = lesson;
+  const { title, number, day, numberDay, type, isFirst, isLast, show_weeks_and_days, repo, repoFilename } = lesson;
   const id = titleToId(title);
   const titleWithNumber = show_weeks_and_days ? `${numberDay}. ${title}` : `${number + 1}. ${title}`;
 
@@ -15,8 +15,7 @@ export function generateFrontMatter(lesson) {
     sidebar_position: number + 1,
     day,
     type,
-    url: `https://github.com/${config.org}/${repo}/blob/main/${filename}`
-    // url: `https://github.com/${config.org}/${repo}/blob/main/${directory}/${filename}`
+    url: `https://github.com/${config.org}/${repo}/blob/main/${repoFilename}`
   }
   if (isFirst) frontMatter.paginationPrev = null;
   if (isLast) frontMatter.paginationNext = null;

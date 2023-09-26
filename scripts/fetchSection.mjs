@@ -51,6 +51,7 @@ export async function fetchSection({ sectionLayout, docsCoursePath, show_weeks_a
 const addLessonMetadata = ({ lessons, repo, directory }) => {
   return lessons.map((lesson, i) => ({
     ...lesson,
+    repoFilename: lesson.filename,
     repo: lesson.repo || repo,
     directory: lesson.directory || directory,
     number: i,

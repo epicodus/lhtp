@@ -4,7 +4,7 @@ This is a rewrite of LHTP using Docusaurus 2, a React-based static site generato
 
 ## Pulling course docs and images from GitHub
 
-The scripts to pull content from private GitHub repos are written to work with a GitHub App.
+The scripts to pull content from GitHub repos are written to work with a GitHub App.
 
 For local development, add the following to `.env`:
 
