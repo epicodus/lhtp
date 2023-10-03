@@ -12,6 +12,8 @@ import { execSync } from 'child_process';
 import config from "./config.mjs";
 
 let githubContentCache = {};
+let cacheHitCount = 0;
+let githubHitCount = 0;
 
 const INSTALLATION_ACCESS_TOKEN = process.env.INSTALLATION_TOKEN || await getInstallationAccessToken();
 
@@ -61,9 +63,13 @@ async function fetchGithubContent({ repo, directory='', documents, org=config.or
       await timeout(1000);
       const response = await client.get(doc.filename);
       githubContentCache[cacheKey] = response.data;
+      githubHitCount++;
+    } else {
+      cacheHitCount++;
     }
     fetchedDocuments.push({ ...doc, content: githubContentCache[cacheKey] });
   }
+  console.log(`Cache hits: ${cacheHitCount}, Github hits: ${githubHitCount}`)
   return fetchedDocuments;
 }
 

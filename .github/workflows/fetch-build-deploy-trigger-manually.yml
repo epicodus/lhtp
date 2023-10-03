@@ -1,0 +1,111 @@
+# this workflow is triggered manually, so the context is the repo from which it is run
+name: Manual Trigger - Fetch docs, build, and deploy Docusaurus site
+run-name: Manual Trigger - Fetch docs, build, and deploy Docusaurus site
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Epicodus Curriculum GitHub App token
+        uses: peaceiris/actions-github-app-token@v1
+        id: curriculum-app-token
+        with:
+          app_id: ${{ secrets.CURRICULUM_GITHUB_APP_ID }}
+          installation_id: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
+          private_key: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
+
+      - name: Fetch docs and create docusaurus source directories for each track
+        run: npm run fetch
+        env:
+          ORG: ${{ secrets.CURRICULUM_ORG }}
+          INSTALLATION_TOKEN: ${{ steps.curriculum-app-token.outputs.token }}
+          # APP_ID: ${{ secrets.CURRICULUM_GITHUB_APP_ID }}
+          # INSTALLATION_ID: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
+          # PRIVATE_KEY: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
+
+  build:
+    needs: fetch-data
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        track: ['career-services', 'workshops']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build ${{ matrix.track }}
+        run: cd ${{ matrix.track }} && npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-${{ matrix.track }}
+          path: ./build/${{ matrix.track }}
+
+  deploy-temp:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Download all build artifacts
+      uses: actions/download-artifact@v2
+      with:
+        path: ./all-builds
+
+    - name: Deploy to gh-pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: ./all-builds
+        user_name: github-actions[bot]
+        user_email: 41898282+github-actions[bot]@users.noreply.github.com
+        commit_message: 'Deploy to gh-pages'
+
+  trigger-deploy-career-services:
+    needs: deploy-temp
+    uses: epicodus/lhtp-career-services/.github/workflows/deploy.yml@main
+
+  trigger-deploy-workshops:
+    needs: deploy-temp
+    uses: epicodus/lhtp-workshops/.github/workflows/deploy.yml@main
+
+  # trigger-deploy-full-time:
+  #   needs: deploy-temp
+  #   uses: epicodus/lhtp-full-time/.github/workflows/deploy.yml@main
+
+  # trigger-deploy-full-time-classic:
+  #   needs: deploy-temp
+  #   uses: epicodus/lhtp-full-time-old/.github/workflows/deploy.yml@main
+
+  # trigger-deploy-part-time:
+  #   needs: deploy-temp
+  #   uses: epicodus/lhtp-part-time/.github/workflows/deploy.yml@main
+
+  # trigger-deploy-part-time-evening:
+  #   needs: deploy-temp
+  #   uses: epicodus/lhtp-part-time-evening/.github/workflows/deploy.yml@main

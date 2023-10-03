@@ -11,10 +11,10 @@ import { titleToId } from "./utils.mjs";
 import config from "./config.mjs";
 
 // the below assumes layout files for course and layout files for all sections in the course are in the same repo and directory
-export async function fetchCourse({ repo, directory, filename }) {
+export async function fetchCourse({ trackDocsPath, repo, directory, filename, root }) {
   const courseLayoutPath = await fetchLayoutFile({ repo, directory, filename });
-  const { title, homepage, show_weeks_and_days, sections } = await readYamlFile(courseLayoutPath);
-  const docsCoursePath = path.join(config.local_docs_path, titleToId(title));
+  const { title, homepage, show_weeks_and_days, sections } = await readYamlFile(courseLayoutPath); 
+  const docsCoursePath = root ? trackDocsPath : path.join(trackDocsPath, titleToId(title));
 
   const sectionDirectories = [];
   for (const layoutFile of sections) {
