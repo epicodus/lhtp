@@ -1,5 +1,5 @@
 module.exports = {
-  'prework': require('/Users/epicodus/projects/lhtp/docs/prework/sidebar.js'),
+  'pre-work': require('/Users/epicodus/projects/lhtp/docs/pre-work/sidebar.js'),
   'introduction-to-programming': require('/Users/epicodus/projects/lhtp/docs/introduction-to-programming/sidebar.js'),
   'introduction-to-programming-classic': require('/Users/epicodus/projects/lhtp/docs/introduction-to-programming-classic/sidebar.js'),
   'introduction-to-programming-part-time': require('/Users/epicodus/projects/lhtp/docs/introduction-to-programming-part-time/sidebar.js'),

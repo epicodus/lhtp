@@ -63,7 +63,6 @@ export async function confirmAction({ message, theDefault = false }) {
 }
 
 export function titleToId(title) {
-  // return title.replace(/[-\s]/g, '_').replace(/[#:;-=?<>(),./]/g, '').toLowerCase();
   return title.replace(/[_\s]/g, '-').replace(/[#:;-=?<>(),./]/g, '').toLowerCase();
 }
 
