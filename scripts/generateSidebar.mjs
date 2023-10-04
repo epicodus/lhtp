@@ -10,6 +10,7 @@ import config from './config.mjs';
 export function generateSectionSidebar({ title, number, lessons, show_weeks_and_days, outDir }) {
   const sidebarPath = path.join(outDir, 'sidebar.js');
   let [courseId, sectionId] = outDir.split('/').slice(-2);
+  if (courseId === 'docs') courseId = '';
   sectionId = sectionId.replace(/^[^a-zA-Z]+/, ''); // remove leading non-alphabetic characters
 
   let label, items = '';
@@ -38,7 +39,8 @@ export function generateSectionSidebar({ title, number, lessons, show_weeks_and_
 
 export function generateCourseSidebar({ title, sectionDirectories, docsCoursePath }) {
   const sidebarPath = path.join(docsCoursePath, 'sidebar.js');
-  const [courseId] = docsCoursePath.split('/').slice(-1);
+  let [courseId] = docsCoursePath.split('/').slice(-1);
+  if (courseId === 'docs') courseId = '';
   const requires = sectionDirectories.map(sectionDirectory => `require('${path.join(docsCoursePath, sectionDirectory, 'sidebar.js')}')`);
 
   const fileContent = `module.exports = [
@@ -49,8 +51,8 @@ export function generateCourseSidebar({ title, sectionDirectories, docsCoursePat
   writeFileSync(sidebarPath, fileContent);
 }
 
-export function generateTopLevelSidebar({ docsCoursePaths }) {
-  const sidebarPath = path.join(config.root_path, 'sidebars.js');
+export function generateTopLevelSidebar({ trackDir, docsCoursePaths }) {
+  const sidebarPath = path.join(trackDir, 'sidebars.js');
   const requires = docsCoursePaths.map(coursePath => `'${titleToId(coursePath.split('/').slice(-1)[0])}': require('${path.join(coursePath, 'sidebar.js')}')`);
 
   const fileContent = `module.exports = {

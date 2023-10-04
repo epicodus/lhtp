@@ -14,7 +14,7 @@ show_week_numbers: false
 
 curriculum_layout:
   repo: lhtp2
-  filename: curriculum-layout.yaml
+  filename: curriculum-tracks-layout.yaml
 
 # The defaults are likely fine for everything below this line
 docusaurus_docs_dir: 'docs' # relative to project root
