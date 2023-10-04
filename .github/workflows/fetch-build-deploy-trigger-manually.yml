@@ -1,6 +1,5 @@
 # this workflow is triggered manually, so the context is the repo from which it is run
 name: Manual Trigger - Fetch docs, build, and deploy multiple Docusaurus sites
-run-name: Manual Trigger - Fetch docs, build, and deploy multiple Docusaurus site
 
 on:
   workflow_dispatch:
@@ -38,7 +37,7 @@ jobs:
           # PRIVATE_KEY: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
 
       - name: Upload fetched data as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: fetched-data
           path: ./tracks
@@ -48,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        track: ['pre-work', 'dei', 'career-services', 'workshops', 'full-time', 'part-time', 'full-time-old', 'part-time-evening']
+        track: ['pre-work', 'dei', 'career-services', 'workshops', 'full-time', 'part-time', 'full-time-pre-october', 'part-time-evening']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -62,7 +61,7 @@ jobs:
         run: npm ci
 
       - name: Download fetched data artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: fetched-data
           path: ./tracks
@@ -70,54 +69,38 @@ jobs:
       - name: Build ${{ matrix.track }}
         run: cd ./tracks/${{ matrix.track }} && npm run build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
+      - name: Create CNAME
+        run: echo "${{ matrix.track }}.learnhowtoprogram.com" > ./tracks/${{ matrix.track }}/CNAME
+
+      - name: Clone target repo
+        run: git clone https://github.com/epicodus/lhtp-${{ matrix.track }}.git ./target-repo
+
+      - name: Switch to gh-pages branch
+        run: |
+          cd ./target-repo
+          git checkout gh-pages
+
+      - name: Remove existing files
+        run: |
+          cd ./target-repo
+          rm -rf *
+
+      - name: Copy build to target repo
+        run: mv ./tracks/${{ matrix.track }}/* ./target-repo
+
+      - name: Generate Epicodus LHTP GitHub App token
+        uses: peaceiris/actions-github-app-token@v1
+        id: lhtp-app-token
         with:
-          name: build-${{ matrix.track }}
-          path: ./tracks/${{ matrix.track }}/build
+          app_id: ${{ secrets.LHTP_GITHUB_APP_ID }}
+          installation_id: ${{ secrets.LHTP_GITHUB_INSTALLATION_ID }}
+          private_key: ${{ secrets.LHTP_GITHUB_APP_PEM }}
 
-  deploy-temp:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Download all build artifacts
-      uses: actions/download-artifact@v2
-      with:
-        path: ./all-builds
-
-    - name: Deploy to gh-pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages
-        publish_dir: ./all-builds
-        user_name: github-actions[bot]
-        user_email: 41898282+github-actions[bot]@users.noreply.github.com
-        commit_message: 'Deploy to gh-pages'
-
-  # trigger-deploy-career-services:
-  #   needs: deploy-temp
-  #   uses: epicodus/lhtp-career-services/.github/workflows/deploy.yml@main
-
-  # trigger-deploy-workshops:
-  #   needs: deploy-temp
-  #   uses: epicodus/lhtp-workshops/.github/workflows/deploy.yml@main
-
-  # trigger-deploy-full-time:
-  #   needs: deploy-temp
-  #   uses: epicodus/lhtp-full-time/.github/workflows/deploy.yml@main
-
-  # trigger-deploy-full-time-classic:
-  #   needs: deploy-temp
-  #   uses: epicodus/lhtp-full-time-old/.github/workflows/deploy.yml@main
-
-  # trigger-deploy-part-time:
-  #   needs: deploy-temp
-  #   uses: epicodus/lhtp-part-time/.github/workflows/deploy.yml@main
-
-  # trigger-deploy-part-time-evening:
-  #   needs: deploy-temp
-  #   uses: epicodus/lhtp-part-time-evening/.github/workflows/deploy.yml@main
+      - name: Push to target repo
+        run: |
+          cd ./target-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Deploy to gh-pages" || echo "No changes to commit"
+          git push --force https://${{ steps.lhtp-app-token.outputs.app_token }}@github.com/epicodus/lhtp-${{ matrix.track }}.git
