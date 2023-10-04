@@ -22,6 +22,7 @@ async function fetchCurriculum() {
 clearDirectories([
   config.scratch_directory_path,
   config.local_docs_path,
-  config.local_images_path
+  config.local_images_path,
+  config.local_tracks_path
 ]);
 fetchCurriculum();

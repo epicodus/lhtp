@@ -22,3 +22,4 @@ docusaurus_static_assets_dir: 'static' # relative to project root
 scratch_dir: 'tmp' # relative to project root
 images_input_dir: 'images' # folder to find images in within github repos
 images_output_dir: 'images' # will go within docusaurus_static_assets_dir
+tracks_dir: 'tracks'

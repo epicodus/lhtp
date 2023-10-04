@@ -11,6 +11,7 @@ export async function loadConfig() {
   const show_week_numbers = config.show_week_numbers;
   const local_docs_path = path.join(root_path, config.docusaurus_docs_dir);
   const local_static_assets_path = path.join(root_path, config.docusaurus_static_assets_dir);
+  const local_tracks_path = path.join(root_path, config.tracks_dir)
   const scratch_directory_path = path.join(root_path, config.scratch_dir);
   const repo_images_path = config.images_input_dir;
   const local_images_path = path.join(local_static_assets_path, config.images_output_dir);
@@ -29,6 +30,7 @@ export async function loadConfig() {
     scratch_directory_path,
     repo_images_path,
     local_images_path,
+    local_tracks_path,
     curriculum_layout_file
   };
 }
