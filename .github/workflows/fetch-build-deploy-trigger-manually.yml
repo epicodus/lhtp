@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        track: ['career-services', 'workshops']
+        track: ['pre-work', 'dei', 'career-services', 'workshops', 'full-time', 'part-time', 'full-time-old', 'part-time-evening']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -98,13 +98,13 @@ jobs:
         user_email: 41898282+github-actions[bot]@users.noreply.github.com
         commit_message: 'Deploy to gh-pages'
 
-  trigger-deploy-career-services:
-    needs: deploy-temp
-    uses: epicodus/lhtp-career-services/.github/workflows/deploy.yml@main
+  # trigger-deploy-career-services:
+  #   needs: deploy-temp
+  #   uses: epicodus/lhtp-career-services/.github/workflows/deploy.yml@main
 
-  trigger-deploy-workshops:
-    needs: deploy-temp
-    uses: epicodus/lhtp-workshops/.github/workflows/deploy.yml@main
+  # trigger-deploy-workshops:
+  #   needs: deploy-temp
+  #   uses: epicodus/lhtp-workshops/.github/workflows/deploy.yml@main
 
   # trigger-deploy-full-time:
   #   needs: deploy-temp
