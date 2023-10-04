@@ -37,6 +37,12 @@ jobs:
           # INSTALLATION_ID: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
           # PRIVATE_KEY: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
 
+      - name: Upload fetched data as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: fetched-data
+          path: ./tracks
+
   build:
     needs: fetch-data
     runs-on: ubuntu-latest
@@ -55,14 +61,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Download fetched data artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: fetched-data
+          path: ./tracks
+
       - name: Build ${{ matrix.track }}
-        run: cd ${{ matrix.track }} && npm run build
+        run: cd ./tracks/${{ matrix.track }} && npm run build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
           name: build-${{ matrix.track }}
-          path: ./build/${{ matrix.track }}
+          path: ./tracks/${{ matrix.track }}/build
 
   deploy-temp:
     needs: build
