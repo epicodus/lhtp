@@ -1,5 +1,6 @@
 // script to fetch entire curriculum (from multiple GitHub repos)
 
+import fs from 'fs-extra';
 import { clearDirectories, readYamlFile } from "./utils.mjs";
 import { fetchTrack } from "./fetchTrack.mjs";
 import { fetchLayoutFile, fetchStaticPage } from "./fetchGithubContent.mjs";
@@ -17,6 +18,9 @@ async function fetchCurriculum() {
   for (const track of tracks) {
     await fetchTrack({ track });
   }
+
+  // disable sidebar on root (www) site
+  fs.writeFileSync(`${config.root_path}/sidebars.js`, `module.exports = {};`);
 }
 
 clearDirectories([
