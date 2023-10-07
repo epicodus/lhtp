@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        track: ['pre-work', 'dei', 'career-services', 'workshops', 'full-time', 'part-time', 'full-time-pre-october', 'part-time-evening']
+        track: ['workshops', 'full-time', 'part-time', 'full-time-pre-october', 'part-time-evening']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

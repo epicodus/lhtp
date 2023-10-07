@@ -10,7 +10,7 @@ import { generateSectionSidebar } from "./generateSidebar.mjs";
 export async function fetchSection({ sectionLayout, docsCoursePath, show_weeks_and_days }) {
   const { section, order, directory, repo, lessons } = sectionLayout;
   const outDir = path.join(docsCoursePath, directory);
-  await fs.ensureDir(outDir);
+  console.log('Fetching section ' + section + ' to ' + outDir);
 
   const updatedLessons = addLessonMetadata({
     lessons,

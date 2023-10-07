@@ -1,5 +1,6 @@
 // script to go through YAML *course* layout file and call fetchSection for each section/week
 
+import fs from "fs-extra";
 import path from "path";
 import { readYamlFile } from "./utils.mjs";
 import { fetchSection } from "./fetchSection.mjs";
@@ -16,12 +17,15 @@ export async function fetchCourse({ trackDocsPath, repo, directory, filename, ro
   const { title, homepage, show_weeks_and_days, sections } = await readYamlFile(courseLayoutPath); 
   const docsCoursePath = root ? trackDocsPath : path.join(trackDocsPath, titleToId(title));
 
+  console.log('FETCHING COURSE ' + title + ' to ' + docsCoursePath);
+
   const sectionDirectories = [];
   for (const layoutFile of sections) {
     const sectionLayoutFilePath = await fetchLayoutFile({ repo, directory, filename: layoutFile });
     const sectionLayout = await readYamlFile(sectionLayoutFilePath);
     sectionDirectories.push(sectionLayout.directory);
-    fetchSection({  
+    fs.ensureDirSync(path.join(docsCoursePath, sectionLayout.directory));
+    fetchSection({
       sectionLayout,
       docsCoursePath,
       show_weeks_and_days
