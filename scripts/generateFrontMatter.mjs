@@ -5,10 +5,11 @@ import config from './config.mjs';
 export function generateFrontMatter(lesson) {
   const { title, number, day, numberDay, type, isFirst, isLast, show_weeks_and_days, repo, repoFilename } = lesson;
   const id = titleToId(title);
-  const titleWithNumber = show_weeks_and_days ? `${numberDay}. ${title}` : `${number + 1}. ${title}`;
+  const titleWithIcons = type === 'lesson' ? `📓 ${title}`  : `✏️ ${title}`;
+  const titleWithNumber = show_weeks_and_days ? `${numberDay}. ${titleWithIcons}` : `${number + 1}. ${titleWithIcons}`;
 
   const frontMatter = {
-    title: config.show_lesson_numbers ? titleWithNumber : title,
+    title: config.show_lesson_numbers ? titleWithNumber : titleWithIcons,
     id,
     slug: id,
     hide_table_of_contents: true,

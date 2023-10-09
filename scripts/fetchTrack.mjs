@@ -30,7 +30,7 @@ export async function fetchTrack({ track }) {
   }
   fs.copyFileSync(path.join(config.local_docs_path, 'courses-tracks.md'), path.join(trackDocsPath, 'courses.md'));
   fs.copyFileSync(path.join(config.local_docs_path, 'student-handbook.md'), path.join(trackDocsPath, 'student-handbook.md'));
-  fs.copyFileSync(path.join(config.root_path, 'docusaurus.config.js'), path.join(trackDir, 'docusaurus.config.js'));
+  fs.copyFileSync(path.join(config.root_path, `${track.name}-docusaurus.config.js`), path.join(trackDir, 'docusaurus.config.js'));
   fs.copyFileSync(path.join(config.root_path, 'package.json'), path.join(trackDir, 'package.json'));
   fs.copyFileSync(path.join(config.root_path, 'package-lock.json'), path.join(trackDir, 'package-lock.json'));
   fs.copySync(path.join(config.root_path, 'src'), path.join(trackDir, 'src'));

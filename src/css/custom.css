@@ -75,3 +75,17 @@ a.breadcrumbs__link span {
 [data-theme='light'] a.breadcrumbs__link span {
   color: #0f7385;
 }
+
+/* .searchBox_ZlJk {
+  width: 200px;
+} */
+
+@media (max-width: 400px) {
+  .navbar__title {
+    display: none;
+  }
+}
+
+/* :root {
+  --ifm-navbar-collapse-breakpoint: 1000px !important;
+} */

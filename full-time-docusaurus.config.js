@@ -19,7 +19,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://www.learnhowtoprogram.com',
+  url: 'https://full-time.learnhowtoprogram.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -45,6 +45,14 @@ const config = {
       src: '/usersnap-loader.js',
       defer: true,
     },
+  ],
+  plugins: [
+    [
+      require.resolve("@cmfcmf/docusaurus-search-local"),
+      {
+        indexBlog: false
+      },
+    ],
   ],
   presets: [
     [
