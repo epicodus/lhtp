@@ -26,8 +26,13 @@ export async function fetchSection({ sectionLayout, docsCoursePath, show_weeks_a
     lessons: fetchedLessons
   });
 
-  const lessonsWithFrontMatter = addLessonFrontMatter({
+  const lessonsWithLinksFixed = fixLinks({
     lessons: deduplicatedLessons,
+    docsCoursePath
+  });
+
+  const lessonsWithFrontMatter = addLessonFrontMatter({
+    lessons: lessonsWithLinksFixed,
     show_weeks_and_days
   });
 
@@ -101,4 +106,15 @@ function renameDuplicateLessons({ lessons }) {
       ...lesson
     };
   });
+}
+
+function fixLinks({ lessons, docsCoursePath }) {
+  if (docsCoursePath.includes('full-time')) {
+    return lessons.map(lesson => ({
+      ...lesson,
+      content: lesson.content.replaceAll('-part-2/', '/')
+    }));
+  } else {
+    return lessons;
+  }
 }
