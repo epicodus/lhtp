@@ -47,6 +47,26 @@ a.breadcrumbs__link span {
   font-weight: bold;
 }
 
+a.track-button {
+  display: block;
+  transition-duration: .4s;
+  font-weight: bold;
+  margin: auto;
+  width: 75%;
+  border-radius: 5px;
+  padding: 8px;
+  border: 2px solid var(--ifm-menu-color-active);
+  font-size: 15px;
+  text-align: center; 
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+a.track-button:hover {
+  background-color: var(--ifm-menu-color-active);
+  color: white;
+}
+
 /* Increased color contrast for accessibility */
 [data-theme='dark'] article p em {
   color: #f7f7f7;
