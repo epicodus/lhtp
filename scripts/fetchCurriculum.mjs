@@ -6,6 +6,9 @@ import { fetchTrack } from "./fetchTrack.mjs";
 import { fetchLayoutFile, fetchStaticPage } from "./fetchGithubContent.mjs";
 import config from "./config.mjs";
 
+const tracksToFetch = ['full-time', 'part-time', 'full-time-pre-october', 'part-time-evening', 'workshops'];
+// const tracksToFetch = ['full-time-pre-october'];
+
 async function fetchCurriculum() {
   const curriculumLayoutPath = await fetchLayoutFile(config.curriculum_layout_file);
   const { tracks, site_homepage, courses_homepage, student_handbook } = await readYamlFile(curriculumLayoutPath);
@@ -16,7 +19,9 @@ async function fetchCurriculum() {
   fetchStaticPage(student_handbook);
 
   for (const track of tracks) {
-    await fetchTrack({ track });
+    if (tracksToFetch.includes(track.name)) {
+      await fetchTrack({ track });
+    }
   }
 
   // disable sidebar on root (www) site

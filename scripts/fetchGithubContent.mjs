@@ -6,7 +6,7 @@ import fs from "fs-extra";
 import path from "path";
 import axios from "axios";
 import "dotenv/config";
-import { reactifyStyles, timeout } from "./utils.mjs";
+import { timeout } from "./utils.mjs";
 import { getInstallationAccessToken } from "./getInstallationToken.mjs";
 import { execSync } from 'child_process';
 import config from "./config.mjs";
@@ -38,11 +38,7 @@ export function fetchStaticPage({ repo, directory, filename }) {
 export async function fetchDocusaurusDocs({ repo, directory='', lessons }) {
   // console.log(`\nFetching ${lessons.length} file(s) from ${repo}/${directory}`);
   const fetchedDocuments = await fetchGithubContent({ repo, directory, documents: lessons });
-  const reactifiedDocuments = fetchedDocuments.map(lesson => ({
-    ...lesson,
-    content: reactifyStyles(lesson.content)
-  }));
-  return reactifiedDocuments;
+  return fetchedDocuments;
 }
 
 async function fetchGithubContent({ repo, directory='', documents, org=config.org }) {
