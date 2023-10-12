@@ -33,6 +33,7 @@ export async function fetchTrack({ track }) {
   fs.copyFileSync(path.join(config.root_path, 'package-lock.json'), path.join(trackRootPath, 'package-lock.json'));
   fs.copySync(path.join(config.root_path, 'src'), path.join(trackRootPath, 'src'));
   fs.copySync(path.join(config.root_path, 'static'), path.join(trackRootPath, 'static'));
+  fs.writeFileSync(path.join(trackRootPath, 'static', 'CNAME'), `${track.name}.learnhowtoprogram.com`); // gh-pages custom domain
 
   generateTopLevelSidebar({ trackRootPath, docsCoursePaths });
 }

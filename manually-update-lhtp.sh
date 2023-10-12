@@ -16,17 +16,14 @@ npm run build
 for track in "${tracks[@]}"; do
   trackDir="$lhtpDir/tracks/$track"
   cd "$trackDir" || exit
-  echo ""
-  echo "Building $track..."
+  echo "\n\nBuild $track...\n"
   npm run build
-  echo ""
 done
 
 # deploy root site
 cd "$parentDir/lhtp-root" || exit
 rm -rf *
 cp -r "$lhtpDir/build/"* .
-echo "www.learnhowtoprogram.com" > CNAME
 git add . && git commit -m "update gh-pages" && git push origin gh-pages
 
 # deploy sites for each track
@@ -38,7 +35,6 @@ for track in "${tracks[@]}"; do
     cd "$dest_dir" || exit
     rm -rf *
     cp -r "$src_dir/"* .
-    echo "$track.learnhowtoprogram.com" > CNAME
     git add . && git commit -m "update gh-pages" && git push origin gh-pages
   else
     echo "Either $src_dir or $dest_dir does not exist. Skipping."
