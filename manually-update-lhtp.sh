@@ -4,17 +4,13 @@ parentDir="/Users/epicodus/lhtp"
 lhtpDir="$parentDir/lhtp"
 tracks=("full-time" "part-time" "full-time-pre-october" "part-time-evening")
 
+# fetch everything
 cd "$lhtpDir" || exit
 npm run fetch
 
-# build and deploy root site
+# build root site
 cd "$lhtpDir" || exit
 npm run build
-cd "$parentDir/lhtp-root" || exit
-rm -rf *
-cp -r "$lhtpDir/build/"* .
-echo "www.learnhowtoprogram.com" > CNAME
-git add . && git commit -m "update gh-pages" && git push origin gh-pages
 
 # build sites for each track
 for track in "${tracks[@]}"; do
@@ -25,6 +21,13 @@ for track in "${tracks[@]}"; do
   npm run build
   echo ""
 done
+
+# deploy root site
+cd "$parentDir/lhtp-root" || exit
+rm -rf *
+cp -r "$lhtpDir/build/"* .
+echo "www.learnhowtoprogram.com" > CNAME
+git add . && git commit -m "update gh-pages" && git push origin gh-pages
 
 # deploy sites for each track
 for track in "${tracks[@]}"; do

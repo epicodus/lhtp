@@ -51,8 +51,8 @@ export function generateCourseSidebar({ title, sectionDirectories, docsCoursePat
   writeFileSync(sidebarPath, fileContent);
 }
 
-export function generateTopLevelSidebar({ trackDir, docsCoursePaths }) {
-  const sidebarPath = path.join(trackDir, 'sidebars.js');
+export function generateTopLevelSidebar({ trackRootPath, docsCoursePaths }) {
+  const sidebarPath = path.join(trackRootPath, 'sidebars.js');
   const requires = docsCoursePaths.map(coursePath => `'${titleToId(coursePath.split('/').slice(-1)[0])}': require('${path.join(coursePath, 'sidebar.js')}')`);
 
   const fileContent = `module.exports = {

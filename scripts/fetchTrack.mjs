@@ -6,11 +6,12 @@ import { fetchCourse } from "./fetchCourse.mjs";
 import { generateTopLevelSidebar } from "./generateSidebar.mjs";
 import config from "./config.mjs";
 import { clearDirectories } from "./utils.mjs";
+import { fetchFile } from './fetchGithubContent.mjs';
 
 export async function fetchTrack({ track }) {
-  const trackDir = path.join(config.root_path, 'tracks', track.name);
-  const trackDocsPath = path.join(trackDir, 'docs');
-  clearDirectories([trackDir, trackDocsPath]);
+  const trackRootPath = path.join(config.root_path, 'tracks', track.name);
+  const trackDocsPath = path.join(trackRootPath, 'docs');
+  clearDirectories([trackRootPath, trackDocsPath]);
 
   let docsCoursePaths = [];
   for (const { repo, directory, filename, root } of track.course_layouts) {
@@ -24,17 +25,14 @@ export async function fetchTrack({ track }) {
     });
   }
 
-  // copy static site-wide pages to trackDocsPath
-  if (track.course_layouts.length > 1) {
-    fs.copyFileSync(path.join(config.local_docs_path, 'site-home.md'), path.join(trackDocsPath, 'site-home.md'));
-  }
-  fs.copyFileSync(path.join(config.local_docs_path, 'courses-tracks.md'), path.join(trackDocsPath, 'courses.md'));
-  fs.copyFileSync(path.join(config.local_docs_path, 'student-handbook.md'), path.join(trackDocsPath, 'student-handbook.md'));
-  fs.copyFileSync(path.join(config.root_path, `${track.name}-docusaurus.config.js`), path.join(trackDir, 'docusaurus.config.js'));
-  fs.copyFileSync(path.join(config.root_path, 'package.json'), path.join(trackDir, 'package.json'));
-  fs.copyFileSync(path.join(config.root_path, 'package-lock.json'), path.join(trackDir, 'package-lock.json'));
-  fs.copySync(path.join(config.root_path, 'src'), path.join(trackDir, 'src'));
-  fs.copySync(path.join(config.root_path, 'static'), path.join(trackDir, 'static'));
+  fetchFile({ repo: config.shared_files_repo, directory: track.name, filename: 'docusaurus.config.js', outDir: trackRootPath });
+  fetchFile({ repo: config.shared_files_repo, directory: track.name, filename: 'courses.md', outDir: trackDocsPath });
+  fetchFile({ repo: config.shared_files_repo, filename: 'tracks.md', outDir: trackDocsPath });
+  fetchFile({ repo: config.student_handbook_repo, filename: 'student-handbook.md', outDir: trackDocsPath });  
+  fs.copyFileSync(path.join(config.root_path, 'package.json'), path.join(trackRootPath, 'package.json'));
+  fs.copyFileSync(path.join(config.root_path, 'package-lock.json'), path.join(trackRootPath, 'package-lock.json'));
+  fs.copySync(path.join(config.root_path, 'src'), path.join(trackRootPath, 'src'));
+  fs.copySync(path.join(config.root_path, 'static'), path.join(trackRootPath, 'static'));
 
-  generateTopLevelSidebar({ trackDir, docsCoursePaths });
+  generateTopLevelSidebar({ trackRootPath, docsCoursePaths });
 }

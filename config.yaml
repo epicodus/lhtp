@@ -12,9 +12,13 @@ fetch_images: false
 show_lesson_numbers: false
 show_week_numbers: false
 
-curriculum_layout:
-  repo: lhtp2
-  filename: curriculum-tracks-layout.yaml
+student_handbook_repo: career-services-full-stack
+shared_files_repo: lhtp2
+curriculum_layout: curriculum-layout.yaml
+
+# curriculum_layout:
+#   repo: lhtp2
+#   filename: curriculum-layout.yaml
 
 # The defaults are likely fine for everything below this line
 docusaurus_docs_dir: 'docs' # relative to project root

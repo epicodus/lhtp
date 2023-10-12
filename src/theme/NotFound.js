@@ -38,7 +38,7 @@ export default function NotFound() {
                 </Translate>
               </p>
               <p>
-                If you are looking for a course, see the <a href="https://www.learnhowtoprogram.com/courses">courses</a> page.
+                If you are looking for courses, see the <a href="https://www.learnhowtoprogram.com/tracks">tracks</a> page.
               </p>
             </div>
           </div>

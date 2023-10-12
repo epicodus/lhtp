@@ -16,6 +16,8 @@ export async function loadConfig() {
   const repo_images_path = config.images_input_dir;
   const local_images_path = path.join(local_static_assets_path, config.images_output_dir);
   const curriculum_layout_file = config.curriculum_layout;
+  const shared_files_repo = config.shared_files_repo;
+  const student_handbook_repo = config.student_handbook_repo;
 
   const org = process.env.ORG;
 
@@ -31,7 +33,9 @@ export async function loadConfig() {
     repo_images_path,
     local_images_path,
     local_tracks_path,
-    curriculum_layout_file
+    curriculum_layout_file,
+    shared_files_repo,
+    student_handbook_repo
   };
 }
 

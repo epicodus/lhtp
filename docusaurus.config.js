@@ -82,13 +82,15 @@ const config = {
         logo: {
           alt: 'Learn How to Program',
           src: 'img/lhtp-favicon.png',
+          href: 'https://www.learnhowtoprogram.com',
+          target: '_self'
         },
         items: [
           {
             type: 'doc',
-            docId: 'courses',
+            docId: 'tracks',
             position: 'left',
-            label: 'Courses',
+            label: 'Tracks',
           },
           {
             type: 'doc',

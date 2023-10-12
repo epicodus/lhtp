@@ -3,20 +3,15 @@
 import fs from 'fs-extra';
 import { clearDirectories, readYamlFile } from "./utils.mjs";
 import { fetchTrack } from "./fetchTrack.mjs";
-import { fetchLayoutFile, fetchStaticPage } from "./fetchGithubContent.mjs";
+import { fetchLayoutFile, fetchFile } from "./fetchGithubContent.mjs";
 import config from "./config.mjs";
 
-const tracksToFetch = ['full-time', 'part-time', 'full-time-pre-october', 'part-time-evening', 'workshops'];
-// const tracksToFetch = ['full-time-pre-october'];
+// const tracksToFetch = ['full-time', 'part-time', 'full-time-pre-october', 'part-time-evening', 'workshops'];
+const tracksToFetch = ['full-time', 'part-time', 'full-time-pre-october', 'part-time-evening'];
 
 async function fetchCurriculum() {
-  const curriculumLayoutPath = await fetchLayoutFile(config.curriculum_layout_file);
-  const { tracks, site_homepage, courses_homepage, student_handbook } = await readYamlFile(curriculumLayoutPath);
-
-  // download site-wide static pages (homepage, courses list, handbook)
-  fetchStaticPage(site_homepage);
-  fetchStaticPage(courses_homepage);
-  fetchStaticPage(student_handbook);
+  const curriculumLayoutPath = await fetchLayoutFile({ repo: config.shared_files_repo, filename: config.curriculum_layout_file });
+  const { tracks } = await readYamlFile(curriculumLayoutPath);
 
   for (const track of tracks) {
     if (tracksToFetch.includes(track.name)) {
@@ -24,8 +19,12 @@ async function fetchCurriculum() {
     }
   }
 
-  // disable sidebar on root (www) site
-  fs.writeFileSync(`${config.root_path}/sidebars.js`, `module.exports = {};`);
+  // fetch files for root (www) site 
+  fetchFile({ repo: config.shared_files_repo, directory: 'root', filename: 'docusaurus.config.js', outDir: config.root_path });
+  fetchFile({ repo: config.shared_files_repo, directory: 'root', filename: 'site-home.md', outDir: config.local_docs_path });
+  fetchFile({ repo: config.shared_files_repo, filename: 'tracks.md', outDir: config.local_docs_path });
+  fetchFile({ repo: config.student_handbook_repo, filename: 'student-handbook.md', outDir: config.local_docs_path });  
+  fs.writeFileSync(`${config.root_path}/sidebars.js`, `module.exports = {};`); // disable sidebar
 }
 
 clearDirectories([
