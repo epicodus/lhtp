@@ -26,9 +26,11 @@ export async function fetchTrack({ track }) {
   }
 
   fetchFile({ repo: config.shared_files_repo, directory: track.name, filename: 'docusaurus.config.js', outDir: trackRootPath });
-  fetchFile({ repo: config.shared_files_repo, directory: track.name, filename: 'courses.md', outDir: trackDocsPath });
   fetchFile({ repo: config.shared_files_repo, filename: 'tracks.md', outDir: trackDocsPath });
   fetchFile({ repo: config.student_handbook_repo, filename: 'student-handbook.md', outDir: trackDocsPath });  
+  if (track.name !== 'workshops') {
+    fetchFile({ repo: config.shared_files_repo, directory: track.name, filename: 'courses.md', outDir: trackDocsPath });
+  }
   fs.copyFileSync(path.join(config.root_path, 'package.json'), path.join(trackRootPath, 'package.json'));
   fs.copyFileSync(path.join(config.root_path, 'package-lock.json'), path.join(trackRootPath, 'package-lock.json'));
   fs.copySync(path.join(config.root_path, 'src'), path.join(trackRootPath, 'src'));

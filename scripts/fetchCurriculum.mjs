@@ -7,8 +7,7 @@ import { fetchTrack } from "./fetchTrack.mjs";
 import { fetchLayoutFile, fetchFile } from "./fetchGithubContent.mjs";
 import config from "./config.mjs";
 
-// const tracksToFetch = ['full-time', 'part-time', 'full-time-pre-october', 'part-time-evening', 'workshops'];
-const tracksToFetch = ['full-time', 'part-time', 'full-time-pre-october', 'part-time-evening'];
+const tracksToFetch = ['full-time', 'part-time', 'full-time-pre-october', 'part-time-evening', 'workshops'];
 
 async function fetchCurriculum() {
   const curriculumLayoutPath = await fetchLayoutFile({ repo: config.shared_files_repo, filename: config.curriculum_layout_file });
@@ -19,8 +18,10 @@ async function fetchCurriculum() {
       await fetchTrack({ track });
     }
   }
+  fetchRootSite();
+}
 
-  // fetch files for root (www) site 
+function fetchRootSite() {
   fetchFile({ repo: config.shared_files_repo, directory: 'root', filename: 'docusaurus.config.js', outDir: config.root_path });
   fetchFile({ repo: config.shared_files_repo, directory: 'root', filename: 'site-home.md', outDir: config.local_docs_path });
   fetchFile({ repo: config.shared_files_repo, filename: 'tracks.md', outDir: config.local_docs_path });
