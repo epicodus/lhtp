@@ -2,6 +2,7 @@ docs
 static/images
 scripts/layouts
 tracks/
+deploy/
 
 # Dependencies
 **/node_modules

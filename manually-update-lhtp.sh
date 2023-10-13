@@ -1,8 +1,8 @@
 #!/bin/bash
 
-parentDir="/Users/epicodus/lhtp"
-lhtpDir="$parentDir/lhtp"
-tracks=("full-time" "part-time" "full-time-pre-october" "part-time-evening" "workshops")
+lhtpDir="/Users/epicodus/lhtp"
+deployDir="$lhtpDir/deploy"
+tracks=("full-time" "part-time" "full-time-pre-october" "part-time-evening" "workshops") # no commas
 
 ###### fetch everything ######
 cd "$lhtpDir" || exit
@@ -16,12 +16,16 @@ npm run build
 for track in "${tracks[@]}"; do
   trackDir="$lhtpDir/tracks/$track"
   cd "$trackDir" || exit
-  echo "\n\nBuild $track...\n"
+  echo ""
+  echo "**************************************"
+  echo "******* BUILDING $track *******"
+  echo "**************************************"
+  echo ""
   npm run build
 done
 
 ###### deploy root site ######
-cd "$parentDir/lhtp-root" || exit
+cd "$deployDir/lhtp-root" || exit
 rm -rf *
 cp -r "$lhtpDir/build/"* .
 git add . && git commit -m "update gh-pages" && git push origin gh-pages
@@ -30,7 +34,7 @@ git add . && git commit -m "update gh-pages" && git push origin gh-pages
 for track in "${tracks[@]}"; do
   trackDir="$lhtpDir/tracks/$track"
   src_dir="$trackDir/build"
-  dest_dir="$parentDir/lhtp-$track"
+  dest_dir="$deployDir/lhtp-$track"
   if [ -d "$src_dir" ] && [ -d "$dest_dir" ]; then
     cd "$dest_dir" || exit
     rm -rf *
