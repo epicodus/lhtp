@@ -1,6 +1,6 @@
 # LHTP 2.0 - Docusaurus
 
-This is a rewrite of LHTP using Docusaurus 2, a React-based static site generator.
+This is a rewrite of LearnHowToProgram ([textbook](https://github.com/epicodus/textbook)) using Docusaurus 2, a React-based static site generator.
 
 ## Pulling course docs and images from GitHub
 
@@ -16,9 +16,15 @@ INSTALLATION_ID = 'GITHUB_APP_INSTALLATION_ID'
 PRIVATE_KEY = 'GITHUB_APP_PEM_KEY'
 ```
 
-Update values if needed in `config.yaml` in project root directory.
+Update values if needed in `config.mjs` in the scripts folder.
 
-Run the following:
+## Fetch, build, deploy from development machine
+
+To fetch, build, and deploy all tracks to gh-pages, run the `manually-update-lhtp` script. (May have to update values.)
+
+## Fetch only
+
+Or run the following to fetch docs and prep each track.
 
 ```
 npm run fetch
@@ -26,12 +32,14 @@ npm run fetch
 
 This will build the docs directory, generate front matter and sidebars. It will also fetch static homepages and images. 
 Images are placed in subdirectories of `static/images` named the same as the repo (e.g. `static/images/intro-curriculum`).
+The root website is fetched into the root directory's docs folder, while each track is fetched into a subfolder of `tracks`.
 
 ---
 
-## Docusaurus
+## Build only
 
 Once the docs are in place in the `docs` folder and the images in `static/images`, you can run Docusaurus itself.
+To build the root website, run this from the project root folder. To build each track, run this from the appropriate `tracks` subfolder.
 
 ### Installation
 

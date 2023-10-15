@@ -1,43 +1,32 @@
 import path from "path";
-import { readYamlFile } from "./utils.mjs";
 import "dotenv/config";
 
-export async function loadConfig() {
-  const root_path = process.cwd();
-  const config = await readYamlFile(path.join(root_path, 'config.yaml'));
+// these values are likely fine as-is
+const root_path = process.cwd();
+const org = process.env.ORG;
+const local_docs_path = path.join(root_path, 'docs');
+const local_static_assets_path = path.join(root_path, 'static');
+const local_tracks_path = path.join(root_path, 'tracks')
+const scratch_directory_path = path.join(root_path, 'tmp');
+const repo_images_path = 'images';
+const local_images_path = path.join(local_static_assets_path, 'images');
 
-  const fetch_images = config.fetch_images;
-  const show_lesson_numbers = config.show_lesson_numbers;
-  const show_week_numbers = config.show_week_numbers;
-  const local_docs_path = path.join(root_path, config.docusaurus_docs_dir);
-  const local_static_assets_path = path.join(root_path, config.docusaurus_static_assets_dir);
-  const local_tracks_path = path.join(root_path, config.tracks_dir)
-  const scratch_directory_path = path.join(root_path, config.scratch_dir);
-  const repo_images_path = config.images_input_dir;
-  const local_images_path = path.join(local_static_assets_path, config.images_output_dir);
-  const curriculum_layout_file = config.curriculum_layout;
-  const shared_files_repo = config.shared_files_repo;
-  const student_handbook_repo = config.student_handbook_repo;
-
-  const org = process.env.ORG;
-
-  return {
-    fetch_images,
-    show_lesson_numbers,
-    show_week_numbers,
-    root_path,
-    org,
-    local_docs_path,
-    local_static_assets_path,
-    scratch_directory_path,
-    repo_images_path,
-    local_images_path,
-    local_tracks_path,
-    curriculum_layout_file,
-    shared_files_repo,
-    student_handbook_repo
-  };
+// values hard-coded here can be changed if needed
+const config = {
+  fetch_images: false,
+  show_lesson_numbers: false,
+  show_week_numbers: false,
+  student_handbook_repo: "career-services-full-stack",
+  shared_files_repo: "lhtp2",
+  curriculum_layout_file: "curriculum-layout.yaml",
+  root_path,
+  org,
+  local_docs_path,
+  local_static_assets_path,
+  local_tracks_path,
+  scratch_directory_path,
+  repo_images_path,
+  local_images_path,
 }
 
-const config = await loadConfig();
 export default config;
