@@ -1,7 +1,6 @@
 # This is a reusable workflow, called by curriculum repo workflows,
 # so context is that of the caller curriculum repo
-name: Fetch docs, build, and deploy Docusaurus site
-run-name: Fetch docs, build, and deploy Docusaurus site
+name: OLD - fetch, build, deploy single Docusaurus site
 
 on:
   # Allows this workflow to be triggered by another workflow
