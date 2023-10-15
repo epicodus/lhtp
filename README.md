@@ -18,11 +18,16 @@ PRIVATE_KEY = 'GITHUB_APP_PEM_KEY'
 
 Update values if needed in `config.mjs` in the scripts folder.
 
+## Fetch, build, deploy via GitHub Actions
+
+Manually run the [fetch-build-deploy-manually](https://github.com/epicodus/lhtp/actions/workflows/fetch-build-deploy-manually.yml) workflow via GitHub actions.
+This will fetch, build, and deploy all tracks to the appropriate gh-pages.
+
 ## Fetch, build, deploy from development machine
 
 To fetch, build, and deploy all tracks to gh-pages, run the `manually-update-lhtp` script. (May have to update values.)
 
-## Fetch only
+## Fetch only (development)
 
 Or run the following to fetch docs and prep each track.
 
@@ -36,12 +41,12 @@ The root website is fetched into the root directory's docs folder, while each tr
 
 ---
 
-## Build only
+## Build only (development)
 
 Once the docs are in place in the `docs` folder and the images in `static/images`, you can run Docusaurus itself.
 To build the root website, run this from the project root folder. To build each track, run this from the appropriate `tracks` subfolder.
 
-### Installation
+### Installation (development)
 
 ```
 $ npm install
