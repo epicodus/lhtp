@@ -1,5 +1,9 @@
 window.onUsersnapLoad = function(api) {
-  api.init();
+  api.init({
+    custom: {
+      course: window.location.pathname.split('/')[1]
+    }
+  });
 }
 var script = document.createElement('script');
 script.defer = 1;
