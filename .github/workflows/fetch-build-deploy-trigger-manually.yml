@@ -27,6 +27,14 @@ jobs:
           installation_id: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
           private_key: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
 
+      - name: Generate Epicodus LHTP GitHub App token
+        uses: peaceiris/actions-github-app-token@v1
+        id: lhtp-app-token
+        with:
+          app_id: ${{ secrets.LHTP_GITHUB_APP_ID }}
+          installation_id: ${{ secrets.LHTP_GITHUB_INSTALLATION_ID }}
+          private_key: ${{ secrets.LHTP_GITHUB_APP_PEM }}
+
       - name: Fetch docs and create docusaurus source directories for each track
         run: npm run fetch
         env:
@@ -36,71 +44,121 @@ jobs:
           # INSTALLATION_ID: ${{ secrets.CURRICULUM_GITHUB_INSTALLATION_ID }}
           # PRIVATE_KEY: ${{ secrets.CURRICULUM_GITHUB_APP_PEM }}
 
-      - name: Upload fetched data as artifact
-        uses: actions/upload-artifact@v3
+      # - name: Build root site
+      #   run: npm run build
+
+      # - name: Build full-time
+      #   run: cd ./tracks/full-time && npm run build
+
+      # - name: Build part-time
+      #   run: cd ./tracks/part-time && npm run build
+
+      - name: Build workshops
+        run: cd ./tracks/workshops && npm run build
+
+      - name: Deploy workshops site to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: fetched-data
-          path: ./tracks
+          personal_token: ${{ steps.lhtp-app-token.outputs.token }}
+          external_repository: epicodus/lhtp-workshops
+          publish_branch: gh-pages
+          publish_dir: ./tracks/workshops/build
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: 'Deploy workshops site to GitHub Pages'
 
-  build:
-    needs: fetch-data
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        track: ['workshops', 'full-time', 'part-time', 'full-time-pre-october', 'part-time-evening']
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      # - name: Deploy root site to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     personal_token: ${{ steps.lhtp-app-token.outputs.token }}
+      #     external_repository: epicodus/lhtp-root
+      #     publish_branch: gh-pages
+      #     publish_dir: ./build
+      #     user_name: github-actions[bot]
+      #     user_email: 41898282+github-actions[bot]@users.noreply.github.com
+      #     commit_message: 'Deploy root site to GitHub Pages'
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+      # - name: Deploy full-time to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     personal_token: ${{ steps.lhtp-app-token.outputs.token }}
+      #     external_repository: epicodus/lhtp-full-time
+      #     publish_branch: gh-pages
+      #     publish_dir: ./tracks/full-time/build
+      #     user_name: github-actions[bot]
+      #     user_email: 41898282+github-actions[bot]@users.noreply.github.com
+      #     commit_message: 'Deploy full-time to GitHub Pages'
 
-      - name: Install dependencies
-        run: npm ci
+      # - name: Deploy part-time to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     personal_token: ${{ steps.lhtp-app-token.outputs.token }}
+      #     external_repository: epicodus/lhtp-part-time
+      #     publish_branch: gh-pages
+      #     publish_dir: ./tracks/part-time/build
+      #     user_name: github-actions[bot]
+      #     user_email: 41898282+github-actions[bot]@users.noreply.github.com
+      #     commit_message: 'Deploy part-time to GitHub Pages'
 
-      - name: Download fetched data artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: fetched-data
-          path: ./tracks
+  # build:
+  #   needs: fetch-data
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       track: ['workshops', 'full-time', 'part-time', 'full-time-pre-october', 'part-time-evening']
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
 
-      - name: Build ${{ matrix.track }}
-        run: cd ./tracks/${{ matrix.track }} && npm run build
+  #     - name: Setup node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
 
-      - name: Create CNAME
-        run: echo "${{ matrix.track }}.learnhowtoprogram.com" > ./tracks/${{ matrix.track }}/CNAME
+  #     - name: Install dependencies
+  #       run: npm ci
 
-      - name: Clone target repo
-        run: git clone https://github.com/epicodus/lhtp-${{ matrix.track }}.git ./target-repo
+  #     - name: Download fetched data artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: fetched-data
+  #         path: ./tracks
 
-      - name: Switch to gh-pages branch
-        run: |
-          cd ./target-repo
-          git checkout gh-pages
+  #     - name: Build ${{ matrix.track }}
+  #       run: cd ./tracks/${{ matrix.track }} && npm run build
 
-      - name: Remove existing files
-        run: |
-          cd ./target-repo
-          rm -rf *
+  #     - name: Create CNAME
+  #       run: echo "${{ matrix.track }}.learnhowtoprogram.com" > ./tracks/${{ matrix.track }}/CNAME
 
-      - name: Copy build to target repo
-        run: mv ./tracks/${{ matrix.track }}/* ./target-repo
+  #     - name: Clone target repo
+  #       run: git clone https://github.com/epicodus/lhtp-${{ matrix.track }}.git ./target-repo
 
-      - name: Generate Epicodus LHTP GitHub App token
-        uses: peaceiris/actions-github-app-token@v1
-        id: lhtp-app-token
-        with:
-          app_id: ${{ secrets.LHTP_GITHUB_APP_ID }}
-          installation_id: ${{ secrets.LHTP_GITHUB_INSTALLATION_ID }}
-          private_key: ${{ secrets.LHTP_GITHUB_APP_PEM }}
+  #     - name: Switch to gh-pages branch
+  #       run: |
+  #         cd ./target-repo
+  #         git checkout gh-pages
 
-      - name: Push to target repo
-        run: |
-          cd ./target-repo
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Deploy to gh-pages" || echo "No changes to commit"
-          git push --force https://${{ steps.lhtp-app-token.outputs.app_token }}@github.com/epicodus/lhtp-${{ matrix.track }}.git
+  #     - name: Remove existing files
+  #       run: |
+  #         cd ./target-repo
+  #         rm -rf *
+
+  #     - name: Copy build to target repo
+  #       run: mv ./tracks/${{ matrix.track }}/* ./target-repo
+
+  #     - name: Generate Epicodus LHTP GitHub App token
+  #       uses: peaceiris/actions-github-app-token@v1
+  #       id: lhtp-app-token
+  #       with:
+  #         app_id: ${{ secrets.LHTP_GITHUB_APP_ID }}
+  #         installation_id: ${{ secrets.LHTP_GITHUB_INSTALLATION_ID }}
+  #         private_key: ${{ secrets.LHTP_GITHUB_APP_PEM }}
+
+  #     - name: Push to target repo
+  #       run: |
+  #         cd ./target-repo
+  #         git config user.name "github-actions[bot]"
+  #         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+  #         git add .
+  #         git commit -m "Deploy to gh-pages" || echo "No changes to commit"
+  #         git push --force https://${{ steps.lhtp-app-token.outputs.app_token }}@github.com/epicodus/lhtp-${{ matrix.track }}.git
