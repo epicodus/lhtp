@@ -26,6 +26,7 @@ done
 
 ###### deploy root site ######
 cd "$deployDir/lhtp-root" || exit
+git pull origin gh-pages
 rm -rf *
 cp -r "$lhtpDir/build/"* .
 git add . && git commit -m "update gh-pages" && git push origin gh-pages
@@ -37,6 +38,7 @@ for track in "${tracks[@]}"; do
   dest_dir="$deployDir/lhtp-$track"
   if [ -d "$src_dir" ] && [ -d "$dest_dir" ]; then
     cd "$dest_dir" || exit
+    git pull origin gh-pages
     rm -rf *
     cp -r "$src_dir/"* .
     git add . && git commit -m "update gh-pages" && git push origin gh-pages
