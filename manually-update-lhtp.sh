@@ -2,11 +2,17 @@
 
 lhtpDir="/Users/epicodus/lhtp"
 deployDir="$lhtpDir/deploy"
-tracks=("full-time" "part-time" "full-time-pre-october" "part-time-evening" "workshops") # no commas
 
-###### fetch everything ######
 cd "$lhtpDir" || exit
-npm run fetch
+
+###### fetch tracks ######
+if [ "$#" -gt 0 ]; then
+  tracks=("$@")
+  npm run fetch "${tracks[@]}" # fetch just the tracks specified
+else
+  tracks=("full-time" "part-time" "full-time-pre-october" "part-time-evening" "workshops") # no commas
+  npm run fetch # fetch all tracks
+fi
 
 ###### build root site ######
 cd "$lhtpDir" || exit

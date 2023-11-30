@@ -5,6 +5,11 @@ import { fetchLayoutFile, fetchFileContent } from "./fetchGithubContent.mjs";
 import { parseGithubPath, timeout, canWriteFile } from "./utils.mjs";
 
 const repoMappings = {
+  'fidgetech-1-introduction-to-programming': 'fidgetech-1-introduction-to-programming',
+  'fidgetech-2-intermediate-javascript': 'fidgetech-2-intermediate-javascript',
+  'fidgetech-3-c-and-net': 'fidgetech-3-c-and-net',
+  'fidgetech-4-react': 'fidgetech-4-react',
+  'fidgetech-3-c-and-net-5-old.yaml': 'fidgetech-3-c-and-net-5-old',
   'prework': 'pre-work-full-stack',
   'introduction-to-programming': 'intro-full-stack',
   'introduction-to-programming-part-time': 'intro-full-stack',
@@ -32,11 +37,11 @@ const repoMappings = {
 
 // keep lessons in these repos rather than moving them to section repo
 const maintainRepoMappings = {
-  'soft-skills-and-job-prep-curriculum': 'career-services-full-stack',
-  'admissions-materials': 'pre-work-full-stack',
-  'dei-curriculum': 'DEI-full-stack',
-  'shared-curriculum': 'shared-full-stack',
-  'prework-curriculum': 'pre-work-full-stack',
+  // 'soft-skills-and-job-prep-curriculum': 'career-services-full-stack',
+  // 'admissions-materials': 'pre-work-full-stack',
+  // 'dei-curriculum': 'DEI-full-stack',
+  // 'shared-curriculum': 'shared-full-stack',
+  // 'prework-curriculum': 'pre-work-full-stack',
 }
 
 const courseFilenames = [
@@ -54,12 +59,11 @@ const courseFilenames = [
   // 'internship-and-job-search.yaml',
   // 'journaling-curriculum.yaml',
   // 'computer-science.yaml',
-  'fidgetech-1-introduction-to-programming-with-jquery.yaml',
   'fidgetech-1-introduction-to-programming.yaml',
-  'fidgetech-2-intermediate-javascript-with-jquery.yaml',
   'fidgetech-2-intermediate-javascript.yaml',
   'fidgetech-3-c-and-net.yaml',
   'fidgetech-4-react.yaml',
+  'fidgetech-3-c-and-net-5-old.yaml',
 ];
 
 for (const filename of courseFilenames) {

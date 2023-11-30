@@ -7,7 +7,9 @@ import { fetchTrack } from "./fetchTrack.mjs";
 import { fetchLayoutFile, fetchFile } from "./fetchGithubContent.mjs";
 import config from "./config.mjs";
 
-const tracksToFetch = ['full-time', 'part-time', 'full-time-pre-october', 'part-time-evening', 'workshops'];
+const defaultTracks = ['full-time', 'part-time', 'full-time-pre-october', 'part-time-evening', 'workshops'];
+const args = process.argv.slice(2);
+const tracksToFetch = args.length > 0 ? args : defaultTracks;
 
 async function fetchCurriculum() {
   const curriculumLayoutPath = await fetchLayoutFile({ repo: config.shared_files_repo, filename: config.curriculum_layout_file });
@@ -15,9 +17,11 @@ async function fetchCurriculum() {
 
   for (const track of tracks) {
     if (tracksToFetch.includes(track.name)) {
+      console.log(`Fetching ${track.name} track...`);
       await fetchTrack({ track });
     }
   }
+  console.log('Fetching root site...');
   fetchRootSite();
 }
 
