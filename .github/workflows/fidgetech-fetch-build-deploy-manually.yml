@@ -1,5 +1,5 @@
 # this workflow is triggered manually, so the context is the repo from which it is run
-name: Manual Trigger - Fetch docs, build, and deploy multiple Docusaurus sites
+name: Update Fidgetech curriculum
 
 on:
   workflow_dispatch:
